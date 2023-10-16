@@ -3,30 +3,58 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
+            href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
             rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
         <title>Les petits Plats</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            anton: ['Anton'],
+                        },
+                        colors: {
+                            yellow: '#FFD15B',
+                        },
+                    },
+                },
+            }
+        </script>
     </head>
     <body>
-        <header
-            class="h-80 bg-blue-400 align-middle flex items-center relative"
-        >
-            <div class="w-full text-center bg-red-400 absolute">
-                <h1 class="text-[#FFD15B] text-2xl">
-                    CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLE ET
-                    DÉLICIEUSES
-                </h1>
+        <header class="h-[500px] bg-blue-400 flex items-center relative">
+            <img
+                src="./assets/Logo.png"
+                alt="Logo du site Les petits plats"
+                class="h-5 top-10 left-10 fixed"
+            />
+            <img src="./assets/banner.jpg" alt="banniere du site recette" />
+            <div class="w-full text-center fixed">
+                <div class="flex justify-center">
+                    <h1 class="text-yellow text-2xl w-2/5 mb-5 font-anton">
+                        CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,
+                        SIMPLE ET DÉLICIEUSES
+                    </h1>
+                </div>
+
                 <input
                     type="text"
                     placeholder="Rechercher une rectte un ingrédient"
                     name="search"
-                    class="w-3/5 h-18"
+                    class="w-3/5 h-10 p-5 text-xs rounded-md"
                 />
-                <button title="search-btn" type="button">
-                    <i class="fa fa-search"> </i>
+                <button
+                    class="w-8 mt-1 -ml-9 absolute"
+                    title="search-btn"
+                    type="button"
+                >
+                    <img src="./assets/Loop.png" alt="icone search bar" />
+                    <!-- <i class="fa fa-search > </i> -->
                 </button>
             </div>
         </header>
