@@ -1,0 +1,6 @@
+# Ignore all files:
+**/*.json
+**/.git
+**/.svn
+**/.hg
+**/node_modules
