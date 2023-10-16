@@ -1,24 +1,37 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel= »stylesheet » href= »https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css »>
-    <title>Les petits Plats</title>
-  </head>
-  <body>
-    <header>
-      <div class="search-header">
-        <form action="#">
-          <input type="text" placeholder=" Search Courses" name="search" />
-          <button title="search-btn" type="button">
-            <i class="fa fa-search"> </i>
-          </button>
-        </form>
-      </div>
-    </header>
-    <main id="main">
-      <section class="main-section"></section>
-    </main>
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+        <title>Les petits Plats</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <header
+            class="h-80 bg-blue-400 align-middle flex items-center relative"
+        >
+            <div class="w-full text-center bg-red-400 absolute">
+                <h1 class="text-[#FFD15B] text-2xl">
+                    CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLE ET
+                    DÉLICIEUSES
+                </h1>
+                <input
+                    type="text"
+                    placeholder="Rechercher une rectte un ingrédient"
+                    name="search"
+                    class="w-3/5 h-18"
+                />
+                <button title="search-btn" type="button">
+                    <i class="fa fa-search"> </i>
+                </button>
+            </div>
+        </header>
+        <main id="main">
+            <section class="main-section"></section>
+        </main>
+    </body>
 </html>
