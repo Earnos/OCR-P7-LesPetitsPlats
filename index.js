@@ -1,21 +1,32 @@
-url = './data/recipes.js'
+import recipes from './data/recipes.js'
 
-fetch(url)
+console.log(recipes)
+fetch(recipes)
     .then((response) => response.json())
-    .then(function (data) {
-        // let dataCard = data.results;
-        // return data.map(function(data) {
-        //   DOM++
-        //})
+    .then((data) => {
+        let recipesData = data
+        recipesData.map(function (recipesData) {
+            // creation du DOM de la card recette?
+        })
     })
     .catch(function (error) {
         console.log(error)
     })
+//console.log(recipes)
 
 // JavaScript to toggle the dropdown
-const dropdownButton = document.getElementById('dropdown-button')
-const dropdownMenu = document.getElementById('dropdown-menu')
-const searchInput = document.getElementById('search-input')
+// const dropdownButton = document.querySelectorAll('.group button')
+// const dropdownMenu = document.querySelectorAll('.group div')
+// const searchInput = document.querySelectorAll('.group input')
+// const dropdownButton = document.querySelectorAll(
+//     '#dropdown-button1, #dropdown-button2'
+// )
+// const dropdownMenu = document.querySelectorAll('#dropdown-menu1, #dropdown-menu2')
+// const searchInput = document.querySelectorAll('#search-input1, #search-input2')
+const dropdownButton = document.getElementById('dropdown-button1')
+const dropdownMenu = document.getElementById('dropdown-menu1')
+const searchInput = document.getElementById('search-input1')
+//console.log(dropdownButton)
 let isOpen = true // Set to true to open the dropdown by default
 
 // Function to toggle the dropdown state
@@ -46,7 +57,21 @@ searchInput.addEventListener('input', () => {
     })
 })
 
-// Dropdown Menus's filters
+// Tags creation event
+const activeTags = document.querySelectorAll('.group div a')
+const main = document.getElementsByTagName('main')
+console.log(main)
+activeTags.map((options) => {
+    options.addEventListener('click', () => {
+        const tagsContainer = document.createElement('div')
+        const tags = document.createElement('div')
+        tags.innerHTML = `<p class="bg-yellow w-4 h-2">Test</p>`
+        tagsContainer.appendChild(tags)
+        main.appendChild(tagsContainer)
+    })
+})
+
+// Old Dropdown Menus's filters
 // DOM filter container
 // const photosContainer = document.querySelector('#filters')
 // const mediaContainer = document.getElementById('media-container')

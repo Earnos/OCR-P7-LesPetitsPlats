@@ -1,4 +1,5 @@
-const recipes = [
+let recipes = []
+export default recipes = [
   {
       "id": 1,
       "image": "Recette01.jpg",
