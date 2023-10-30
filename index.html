@@ -26,12 +26,12 @@
             }
         </script>
     </head>
-    <body>
-        <header class="mh-[667px] bg-blue-400 flex items-center relative">
+    <body class="bg-gray-200">
+        <header class="mh-[667px] bg-blue-400 flex items-center">
             <img
                 src="./assets/Logo.png"
                 alt="Logo du site Les petits plats"
-                class="h-5 top-10 left-10 fixed"
+                class="h-[1.8vw] top-10 left-10 absolute"
             />
             <img
                 src="./assets/banner.jpg"
@@ -41,7 +41,7 @@
             <div class="w-full text-center absolute">
                 <div class="flex justify-center">
                     <h1
-                        class="text-yellow text-4xl w-2/5 mb-5 leading-normal font-anton"
+                        class="text-yellow text-[3vw] w-2/4 mb-5 leading-normal font-anton"
                     >
                         CHERCHER PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN,
                         SIMPLES ET DÉLICIEUSES
@@ -59,13 +59,17 @@
                     title="search-btn"
                     type="button"
                 >
-                    <img src="./assets/Loop.png" alt="icone search bar" />
+                    <img
+                        src="./assets/loop.png"
+                        alt="icone search bar"
+                        class="hover:bg-yellow"
+                    />
                     <!-- <i class="fa fa-search > </i> -->
                 </button>
             </div>
         </header>
         <main>
-            <div id="filters" class="h-20 w-full flex items-center ml-[5%]">
+            <div id="filters" class="h-20 flex items-center ml-[5%]">
                 <!-- component -->
                 <div
                     class="min-h-screen flex items-center justify-center mr-20"
@@ -73,7 +77,7 @@
                     <div class="relative group">
                         <button
                             id="dropdown-button1"
-                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow"
                         >
                             <span class="mr-2">ingrédients</span>
                             <svg
@@ -105,22 +109,22 @@
                             <!-- Dropdown content goes here -->
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Jus de citron</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Tomate</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Glaçons</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Poulet</a
                             >
                         </div>
@@ -133,9 +137,9 @@
                     <div class="relative group">
                         <button
                             id="dropdown-button2"
-                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow"
                         >
-                            <span class="mr-2">Appareils</span>
+                            <span class="mr-2">Appareils&nbsp;&nbsp;</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="w-5 h-5 ml-2 -mr-1"
@@ -165,22 +169,22 @@
                             <!-- Dropdown content goes here -->
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Jus de citron</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Tomate</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Glaçons</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Poulet</a
                             >
                         </div>
@@ -193,7 +197,7 @@
                     <div class="relative group">
                         <button
                             id="dropdown-button3"
-                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-blue-500"
+                            class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-yellow"
                         >
                             <span class="mr-2">Ustensiles</span>
                             <svg
@@ -225,22 +229,22 @@
                             <!-- Dropdown content goes here -->
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Jus de citron</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Toamate</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Glaçons</a
                             >
                             <a
                                 href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer rounded-md"
+                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
                                 >Poulet</a
                             >
                         </div>
@@ -250,5 +254,8 @@
             <section class="main-section"></section>
         </main>
         <script src="./index.js" type="module"></script>
+        <script src="./data.js" type="module"></script>
+        <script src="./filters.js" type="module"></script>
+        <script src="./searchBar.js" type="module"></script>
     </body>
 </html>
