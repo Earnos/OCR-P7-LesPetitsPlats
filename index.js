@@ -1,51 +1,81 @@
 import recipes from './data/recipes.js'
 
 console.log(recipes)
-fetch(recipes)
-    .then((response) => response.json())
-    .then((data) => {
-        let recipesData = data
-        recipesData.map(function (recipesData) {
-            // creation du DOM de la card recette?
-        })
-    })
-    .catch(function (error) {
-        console.log(error)
-    })
+
+// fetch(recipes) ---- a remplacer par une fonction d'appel des data dans data.js
+//     .then((response) => response.json())
+//     .then((data) => {
+//         let recipesData = data
+//         recipesData.map(function (recipesData) {
+//             // creation du DOM de la card recette
+//         })
+//     })
+//     .catch(function (error) {
+//         console.log(error)
+//     })
 //console.log(recipes)
 
 // JavaScript to toggle the dropdown
-// const dropdownButton = document.querySelectorAll('.group button')
-// const dropdownMenu = document.querySelectorAll('.group div')
-// const searchInput = document.querySelectorAll('.group input')
-// const dropdownButton = document.querySelectorAll(
-//     '#dropdown-button1, #dropdown-button2'
-// )
-// const dropdownMenu = document.querySelectorAll('#dropdown-menu1, #dropdown-menu2')
-// const searchInput = document.querySelectorAll('#search-input1, #search-input2')
-const dropdownButton = document.getElementById('dropdown-button1')
-const dropdownMenu = document.getElementById('dropdown-menu1')
-const searchInput = document.getElementById('search-input1')
-//console.log(dropdownButton)
+const dropdownButton1 = document.getElementById('dropdown-button1')
+const dropdownMenu1 = document.getElementById('dropdown-menu1')
+const searchInput1 = document.getElementById('search-input1')
+const dropdownButton2 = document.getElementById('dropdown-button2')
+const dropdownMenu2 = document.getElementById('dropdown-menu2')
+const searchInput2 = document.getElementById('search-input2')
+const dropdownButton3 = document.getElementById('dropdown-button3')
+const dropdownMenu3 = document.getElementById('dropdown-menu3')
+const searchInput3 = document.getElementById('search-input3')
+
 let isOpen = true // Set to true to open the dropdown by default
 
 // Function to toggle the dropdown state
-function toggleDropdown() {
+function toggleDropdowns(elementHtml) {
     isOpen = !isOpen
-    dropdownMenu.classList.toggle('hidden', !isOpen)
+    elementHtml.classList.toggle('hidden', !isOpen)
 }
 
-// Set initial state
-toggleDropdown()
+dropdownButton1.addEventListener('click', () => {
+    toggleDropdowns(dropdownMenu1)
+})
 
-dropdownButton.addEventListener('click', () => {
-    toggleDropdown()
+dropdownButton2.addEventListener('click', () => {
+    toggleDropdowns(dropdownMenu2)
+})
+
+dropdownButton3.addEventListener('click', () => {
+    toggleDropdowns(dropdownMenu3)
 })
 
 // Add event listener to filter items based on input
-searchInput.addEventListener('input', () => {
-    const searchTerm = searchInput.value.toLowerCase()
-    const items = dropdownMenu.querySelectorAll('a')
+searchInput1.addEventListener('input', () => {
+    const searchTerm = searchInput1.value.toLowerCase()
+    const items = dropdownMenu1.querySelectorAll('a')
+
+    items.forEach((item) => {
+        const text = item.textContent.toLowerCase()
+        if (text.includes(searchTerm)) {
+            item.style.display = 'block'
+        } else {
+            item.style.display = 'none'
+        }
+    })
+})
+searchInput2.addEventListener('input', () => {
+    const searchTerm = searchInput2.value.toLowerCase()
+    const items = dropdownMenu2.querySelectorAll('a')
+
+    items.forEach((item) => {
+        const text = item.textContent.toLowerCase()
+        if (text.includes(searchTerm)) {
+            item.style.display = 'block'
+        } else {
+            item.style.display = 'none'
+        }
+    })
+})
+searchInput3.addEventListener('input', () => {
+    const searchTerm = searchInput3.value.toLowerCase()
+    const items = dropdownMenu3.querySelectorAll('a')
 
     items.forEach((item) => {
         const text = item.textContent.toLowerCase()
@@ -60,7 +90,7 @@ searchInput.addEventListener('input', () => {
 // Tags creation event
 const activeTags = document.querySelectorAll('.group div a')
 const main = document.getElementsByTagName('main')
-console.log(main)
+
 activeTags.map((options) => {
     options.addEventListener('click', () => {
         const tagsContainer = document.createElement('div')
