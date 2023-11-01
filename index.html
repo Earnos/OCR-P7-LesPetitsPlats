@@ -69,7 +69,10 @@
             </div>
         </header>
         <main>
-            <div id="filters" class="h-20 flex items-center ml-[5%]">
+            <div
+                id="filters"
+                class="h-20 flex items-center ml-[5%] relative z-10"
+            >
                 <!-- component -->
                 <div
                     class="min-h-screen flex items-center justify-center mr-20"
@@ -251,11 +254,14 @@
                     </div>
                 </div>
             </div>
-            <section class="main-section"></section>
+            <section
+                class="main-section flex flex-wrap justify-center"
+            ></section>
         </main>
         <script src="./index.js" type="module"></script>
         <script src="./data.js" type="module"></script>
         <script src="./filters.js" type="module"></script>
         <script src="./searchBar.js" type="module"></script>
+        <script src="./cards.js" type="module"></script>
     </body>
 </html>
