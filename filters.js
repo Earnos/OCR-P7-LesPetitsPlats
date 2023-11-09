@@ -1,3 +1,7 @@
+import getData from './data.js'
+
+let data = getData()
+
 // JavaScript to toggle the dropdown
 const dropdownButton1 = document.getElementById('dropdown-button1')
 const dropdownMenu1 = document.getElementById('dropdown-menu1')
@@ -68,4 +72,112 @@ searchInput3.addEventListener('input', () => {
             item.style.display = 'none'
         }
     })
+})
+
+// functions dropDown menu's display
+function ingredientDisplay() {
+    const listIngredients = document.getElementById('drop-content1')
+
+    // for loop for each recipes
+    for (let i = 0; i < data.length; i++) {
+        // Loop for each ingredients
+        for (let j = 0; j < data[i].ingredients.length; j++) {
+            // ingredient's list creation
+            const ingredient = document.createElement('li')
+            ingredient.classList.add(
+                'p-[5px]',
+                'mb-1',
+                'text-gray-700',
+                'hover:bg-gray-100',
+                'active:bg-yellow',
+                'rounded-md',
+                'font-manrope',
+                'text-sm'
+            )
+            ingredient.textContent = data[i].ingredients[j].ingredient
+            listIngredients.appendChild(ingredient)
+        }
+    }
+}
+
+function appreilsDisplay() {
+    const listAppareils = document.getElementById('drop-content2')
+
+    // loop for each recipes
+    for (let i = 0; i < data.length; i++) {
+        // List appreils
+        const appareils = document.createElement('li')
+        appareils.classList.add(
+            'p-[5px]',
+            'mb-1',
+            'text-gray-700',
+            'hover:bg-gray-100',
+            'active:bg-yellow',
+            'rounded-md',
+            'font-manrope',
+            'text-sm'
+        )
+        appareils.textContent = data[i].appliance
+        listAppareils.appendChild(appareils)
+    }
+}
+
+function ustensilsDisplay() {
+    const listustensils = document.getElementById('drop-content3')
+
+    // for loop for each recipes
+    for (let i = 0; i < data.length; i++) {
+        // Loop for each ustensils
+        for (let j = 0; j < data[i].ustensils.length; j++) {
+            // ustensils's list creation
+            const ustensils = document.createElement('li')
+            ustensils.classList.add(
+                'p-[5px]',
+                'mb-1',
+                'text-gray-700',
+                'hover:bg-gray-100',
+                'active:bg-yellow',
+                'rounded-md',
+                'font-manrope',
+                'text-sm'
+            )
+            ustensils.textContent = data[i].ustensils[j]
+            listustensils.appendChild(ustensils)
+        }
+    }
+}
+
+ingredientDisplay()
+appreilsDisplay()
+ustensilsDisplay()
+
+// Dropdown menu's tags creation
+const dropdownList = document.querySelectorAll('#drop-content1 li')
+
+dropdownList.forEach((item) => {
+    item.addEventListener(
+        'click',
+        (e) => {
+            //if (e.target.tagName === 'li') {
+            const newTag = document.createElement('span')
+            newTag.classList.add(
+                'w-8',
+                'h-4',
+                'bg-yellow',
+                'p-2',
+                'mx-4',
+                'my-3',
+                'rounded-md',
+                'text-[14px]',
+                'font-manrope'
+            )
+            // Text's tag
+            newTag.textContent = e.target.textContent
+            // add tag in DOM
+            const tagsContainer = document.getElementById('tags-container')
+            tagsContainer.appendChild(newTag)
+        }
+        //}
+    )
+    // Ajoutez un gestionnaire d'événements au dropdown
 })

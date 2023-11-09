@@ -9,6 +9,10 @@
             href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
             rel="stylesheet"
         />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Manrope&display=swap"
+            rel="stylesheet"
+        />
         <title>Les petits Plats</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -17,6 +21,7 @@
                     extend: {
                         fontFamily: {
                             anton: ['Anton'],
+                            manrope: ['Manrope'],
                         },
                         colors: {
                             yellow: '#FFD15B',
@@ -59,11 +64,7 @@
                     title="search-btn"
                     type="button"
                 >
-                    <img
-                        src="./assets/loop.png"
-                        alt="icone search bar"
-                        class="hover:bg-yellow"
-                    />
+                    <img src="./assets/loop.png" alt="icone search bar" />
                     <!-- <i class="fa fa-search > </i> -->
                 </button>
             </div>
@@ -73,7 +74,7 @@
                 id="filters"
                 class="h-20 flex items-center ml-[5%] relative z-10"
             >
-                <!-- component -->
+                <!-- dropdown 1-->
                 <div
                     class="min-h-screen flex items-center justify-center mr-20"
                 >
@@ -104,36 +105,17 @@
                             <!-- Search input -->
                             <input
                                 id="search-input1"
-                                class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
+                                class="block w-full px-4 py-2 mb-4 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
                                 type="text"
                                 placeholder="Search items"
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Jus de citron</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Tomate</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Glaçons</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Poulet</a
-                            >
+                            <ul id="drop-content1" class="cursor-pointer"></ul>
                         </div>
                     </div>
                 </div>
-                <!-- component 2-->
+                <!-- dropdown 2-->
                 <div
                     class="min-h-screen flex items-center justify-center mr-20"
                 >
@@ -164,36 +146,17 @@
                             <!-- Search input -->
                             <input
                                 id="search-input2"
-                                class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
+                                class="block w-full px-4 py-2 mb-4 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
                                 type="text"
                                 placeholder="Search items"
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Jus de citron</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Tomate</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Glaçons</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Poulet</a
-                            >
+                            <ul id="drop-content2" class="cursor-pointer"></ul>
                         </div>
                     </div>
                 </div>
-                <!-- component 3-->
+                <!-- dropdown 3-->
                 <div
                     class="min-h-screen flex items-center justify-center mr-12"
                 >
@@ -224,38 +187,20 @@
                             <!-- Search input -->
                             <input
                                 id="search-input3"
-                                class="block w-full px-4 py-2 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
+                                class="block w-full px-4 py-2 mb-4 text-gray-800 border rounded-md border-gray-300 focus:outline-none"
                                 type="text"
                                 placeholder="Search items"
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Jus de citron</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Toamate</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Glaçons</a
-                            >
-                            <a
-                                href="#"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-100 active:bg-yellow cursor-pointer rounded-md"
-                                >Poulet</a
-                            >
+                            <ul id="drop-content3" class="cursor-pointer"></ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <div id="tags-container" class="mx-[3.5%] mt-4 mb-[6%]"></div>
             <section
-                class="main-section flex flex-wrap justify-center"
+                class="main-section flex flex-wrap justify-center gap-16 ml-[4%] mr-[4%] mt-8"
             ></section>
         </main>
         <script src="./index.js" type="module"></script>
