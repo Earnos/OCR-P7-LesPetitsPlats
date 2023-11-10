@@ -3,7 +3,7 @@
 
 // // let recipes = getData()
 
-// Methode with FOR loop
+// Sort method with FOR loop
 const searchInput = document.getElementById('searchInput')
 
 searchInput.addEventListener('keyup', (e) => {
@@ -29,7 +29,7 @@ function filterRecipes(letters, elements) {
     }
 }
 
-// Methode with filters()
+// Sort methode with filter()
 // function filterRecipes() {
 //     const searchInput = document.getElementById('searchInput')
 //     const searchTerm = searchInput.value.toLowerCase()

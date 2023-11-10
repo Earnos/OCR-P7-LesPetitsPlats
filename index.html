@@ -61,7 +61,7 @@
                     id="searchInput"
                 />
                 <button
-                    class="w-8 mt-1 -ml-9 absolute"
+                    class="w-8 mt-1 -ml-9 absolute cursor-pointer z-50"
                     title="search-btn"
                     type="button"
                 >
@@ -76,9 +76,7 @@
                 class="h-20 flex items-center ml-[5%] relative z-10"
             >
                 <!-- dropdown 1-->
-                <div
-                    class="min-h-screen flex items-center justify-center mr-20"
-                >
+                <div class="flex items-center justify-center mr-20">
                     <div class="relative group">
                         <button
                             id="dropdown-button1"
@@ -87,10 +85,11 @@
                             <span class="mr-2">ingrédients</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="w-5 h-5 ml-2 -mr-1"
+                                class="w-5 h-5 ml-2 -mr-1 caret1"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
+                                id="caret1"
                             >
                                 <path
                                     fill-rule="evenodd"
@@ -112,14 +111,15 @@
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <ul id="drop-content1" class="cursor-pointer"></ul>
+                            <ul
+                                id="drop-content1"
+                                class="cursor-pointer h-[300px] overflow-y-scroll"
+                            ></ul>
                         </div>
                     </div>
                 </div>
                 <!-- dropdown 2-->
-                <div
-                    class="min-h-screen flex items-center justify-center mr-20"
-                >
+                <div class="flex items-center justify-center mr-20">
                     <div class="relative group">
                         <button
                             id="dropdown-button2"
@@ -128,10 +128,11 @@
                             <span class="mr-2">Appareils&nbsp;&nbsp;</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                class="w-5 h-5 ml-2 -mr-1"
+                                class="w-5 h-5 ml-2 -mr-1 caret2"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
+                                id="caret2"
                             >
                                 <path
                                     fill-rule="evenodd"
@@ -153,14 +154,15 @@
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <ul id="drop-content2" class="cursor-pointer"></ul>
+                            <ul
+                                id="drop-content2"
+                                class="cursor-pointer h-[300px] overflow-y-scroll"
+                            ></ul>
                         </div>
                     </div>
                 </div>
                 <!-- dropdown 3-->
-                <div
-                    class="min-h-screen flex items-center justify-center mr-12"
-                >
+                <div class="flex items-center justify-center mr-12">
                     <div class="relative group">
                         <button
                             id="dropdown-button3"
@@ -173,6 +175,7 @@
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
+                                id="caret3"
                             >
                                 <path
                                     fill-rule="evenodd"
@@ -194,7 +197,10 @@
                                 autocomplete="off"
                             />
                             <!-- Dropdown content goes here -->
-                            <ul id="drop-content3" class="cursor-pointer"></ul>
+                            <ul
+                                id="drop-content3"
+                                class="cursor-pointer h-[300px] overflow-y-scroll"
+                            ></ul>
                         </div>
                     </div>
                 </div>

@@ -13,24 +13,45 @@ const dropdownButton3 = document.getElementById('dropdown-button3')
 const dropdownMenu3 = document.getElementById('dropdown-menu3')
 const searchInput3 = document.getElementById('search-input3')
 
-let isOpen = true // Set to true to open the dropdown by default
+//let isOpen = true // Set to true to open the dropdown by default
 
-// Function to toggle the dropdown state
-function toggleDropdowns(elementHtml) {
-    isOpen = !isOpen
-    elementHtml.classList.toggle('hidden', !isOpen)
+//Function to toggle the dropdown state
+// function toggleDropdowns(elementHtml) {
+//     isOpen = !isOpen
+//     elementHtml.classList.toggle('hidden', !isOpen)
+// }
+function toggleDropdowns(dropdownMenu) {
+    if (dropdownMenu.style.display === 'none') {
+        dropdownMenu.style.display = 'block'
+    } else {
+        dropdownMenu.style.display = 'none'
+    }
+}
+
+function toggleCaretRotation(caretId) {
+    const caret = document.getElementById(caretId)
+    // get current rotation
+    const currentRotation = caret.style.transform || 'rotate(0deg)'
+    // new rotation
+    const newRotation = currentRotation.includes('180')
+        ? 'rotate(0deg)'
+        : 'rotate(180deg)'
+    caret.style.transform = newRotation
 }
 
 dropdownButton1.addEventListener('click', () => {
     toggleDropdowns(dropdownMenu1)
+    toggleCaretRotation('caret1')
 })
 
 dropdownButton2.addEventListener('click', () => {
     toggleDropdowns(dropdownMenu2)
+    toggleCaretRotation('caret2')
 })
 
 dropdownButton3.addEventListener('click', () => {
     toggleDropdowns(dropdownMenu3)
+    toggleCaretRotation('caret3')
 })
 
 // Add event listener to filter items based on input
