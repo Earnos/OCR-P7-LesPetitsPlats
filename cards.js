@@ -5,12 +5,12 @@ let data = getData()
 console.log(data)
 
 // Fonction pour créer et afficher les cartes de recettes
-function displayRecipes() {
+export default function getRecipes() {
     data.forEach((recipe) => {
         const cardContainer = document.createElement('div')
         const section = document.querySelector('.main-section')
 
-        cardContainer.classList.add('flex')
+        cardContainer.classList.add('flex', 'cards')
         cardContainer.innerHTML = `
 <div class="w-[27vw] h-[650px] bg-white rounded-xl relative">
     <div class="w-full h-[220px]" ><span class='pl-2 pt-0.5 w-[50px] h-[20px] text-[10px] bg-yellow rounded-3xl top-4 right-4 absolute pl-1.5 '>${recipe.time} min</span><img src="./assets/images/${recipe.image}" class='h-full w-full object-cover rounded-t-xl' /></div>
@@ -28,4 +28,4 @@ function displayRecipes() {
 }
 
 // Appel de la fonction pour afficher les cartes de recettes
-displayRecipes()
+getRecipes()

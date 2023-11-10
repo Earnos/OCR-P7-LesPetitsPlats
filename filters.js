@@ -155,29 +155,23 @@ ustensilsDisplay()
 const dropdownList = document.querySelectorAll('#drop-content1 li')
 
 dropdownList.forEach((item) => {
-    item.addEventListener(
-        'click',
-        (e) => {
-            //if (e.target.tagName === 'li') {
-            const newTag = document.createElement('span')
-            newTag.classList.add(
-                'w-8',
-                'h-4',
-                'bg-yellow',
-                'p-2',
-                'mx-4',
-                'my-3',
-                'rounded-md',
-                'text-[14px]',
-                'font-manrope'
-            )
-            // Text's tag
-            newTag.textContent = e.target.textContent
-            // add tag in DOM
-            const tagsContainer = document.getElementById('tags-container')
-            tagsContainer.appendChild(newTag)
-        }
-        //}
-    )
-    // Ajoutez un gestionnaire d'événements au dropdown
+    item.addEventListener('click', (e) => {
+        const newTag = document.createElement('span')
+        newTag.classList.add(
+            'w-8',
+            'h-4',
+            'bg-yellow',
+            'p-2',
+            'mx-4',
+            'my-3',
+            'rounded-md',
+            'text-[14px]',
+            'font-manrope'
+        )
+        // Text's tag
+        newTag.textContent = e.target.textContent
+        // add tag in DOM
+        const tagsContainer = document.getElementById('tags-container')
+        tagsContainer.appendChild(newTag)
+    })
 })
