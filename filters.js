@@ -74,40 +74,27 @@ searchInput3.addEventListener('input', () => {
     })
 })
 
-// functions dropDown menu's display
+// Display in dropdown menus's functions
 function ingredientDisplay() {
     const listIngredients = document.getElementById('drop-content1')
+    const uniqueIngredients = new Set()
 
-    // for loop for each recipes
+    // Loop for each recipe
     for (let i = 0; i < data.length; i++) {
-        // Loop for each ingredients
+        // Loop for each ingredient
         for (let j = 0; j < data[i].ingredients.length; j++) {
-            // ingredient's list creation
-            const ingredient = document.createElement('li')
-            ingredient.classList.add(
-                'p-[5px]',
-                'mb-1',
-                'text-gray-700',
-                'hover:bg-gray-100',
-                'active:bg-yellow',
-                'rounded-md',
-                'font-manrope',
-                'text-sm'
-            )
-            ingredient.textContent = data[i].ingredients[j].ingredient
-            listIngredients.appendChild(ingredient)
+            // Add each ingredient to the set
+            uniqueIngredients.add(data[i].ingredients[j].ingredient)
         }
     }
-}
 
-function appreilsDisplay() {
-    const listAppareils = document.getElementById('drop-content2')
+    // Clear existing content in the list
+    listIngredients.innerHTML = ''
 
-    // loop for each recipes
-    for (let i = 0; i < data.length; i++) {
-        // List appreils
-        const appareils = document.createElement('li')
-        appareils.classList.add(
+    // Create and append a new <li> element for each unique ingredient
+    uniqueIngredients.forEach((ingredient) => {
+        const listItem = document.createElement('li')
+        listItem.classList.add(
             'p-[5px]',
             'mb-1',
             'text-gray-700',
@@ -117,38 +104,78 @@ function appreilsDisplay() {
             'font-manrope',
             'text-sm'
         )
-        appareils.textContent = data[i].appliance
-        listAppareils.appendChild(appareils)
+        listItem.textContent = ingredient
+        listIngredients.appendChild(listItem)
+    })
+}
+
+function appareilsDisplay() {
+    const listAppareils = document.getElementById('drop-content2')
+    const uniqueAppareils = new Set()
+
+    // Loop for each recipe
+    for (let i = 0; i < data.length; i++) {
+        let appareil = data[i].appliance
+        uniqueAppareils.add(appareil)
     }
+
+    // Clear existing content in the list
+    listAppareils.innerHTML = ''
+
+    // Create and append a new <li> element for each unique appliance
+    uniqueAppareils.forEach((appareil) => {
+        const listItem = document.createElement('li')
+        listItem.classList.add(
+            'p-[5px]',
+            'mb-1',
+            'text-gray-700',
+            'hover:bg-gray-100',
+            'active:bg-yellow',
+            'rounded-md',
+            'font-manrope',
+            'text-sm'
+        )
+        listItem.textContent = appareil
+        listAppareils.appendChild(listItem)
+    })
 }
 
 function ustensilsDisplay() {
-    const listustensils = document.getElementById('drop-content3')
+    const listUstensils = document.getElementById('drop-content3')
+    const uniqueUstensils = new Set()
 
-    // for loop for each recipes
+    // Loop for each recipe
     for (let i = 0; i < data.length; i++) {
-        // Loop for each ustensils
+        // Loop for each ustensil
         for (let j = 0; j < data[i].ustensils.length; j++) {
-            // ustensils's list creation
-            const ustensils = document.createElement('li')
-            ustensils.classList.add(
-                'p-[5px]',
-                'mb-1',
-                'text-gray-700',
-                'hover:bg-gray-100',
-                'active:bg-yellow',
-                'rounded-md',
-                'font-manrope',
-                'text-sm'
-            )
-            ustensils.textContent = data[i].ustensils[j]
-            listustensils.appendChild(ustensils)
+            // Add each ustensil to the set
+            uniqueUstensils.add(data[i].ustensils[j])
         }
     }
+
+    // Clear existing content in the list
+    listUstensils.innerHTML = ''
+
+    // Create and append a new <li> element for each unique ustensil
+    uniqueUstensils.forEach((ustensil) => {
+        const listItem = document.createElement('li')
+        listItem.classList.add(
+            'p-[5px]',
+            'mb-1',
+            'text-gray-700',
+            'hover:bg-gray-100',
+            'active:bg-yellow',
+            'rounded-md',
+            'font-manrope',
+            'text-sm'
+        )
+        listItem.textContent = ustensil
+        listUstensils.appendChild(listItem)
+    })
 }
 
 ingredientDisplay()
-appreilsDisplay()
+appareilsDisplay()
 ustensilsDisplay()
 
 // Dropdown menu's tags creation
