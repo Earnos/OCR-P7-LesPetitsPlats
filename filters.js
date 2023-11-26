@@ -196,6 +196,8 @@ ustensilsDisplay()
 // Dropdown menu's tags creation
 function initializeDropdown(dropdownId) {
     const dropdownList = document.querySelectorAll(`#${dropdownId} li`)
+    const recipes = document.querySelectorAll('.main-section .cards')
+    //console.log(recipes)
 
     dropdownList.forEach((item) => {
         item.addEventListener('click', (e) => {
@@ -215,7 +217,12 @@ function initializeDropdown(dropdownId) {
                 'font-manrope',
                 'truncate'
             )
-            newTag.classList.add('font-manrope', 'text-[14px]', 'rounded-md')
+            newTag.classList.add(
+                'font-manrope',
+                'text-[14px]',
+                'rounded-md',
+                'tag'
+            )
             tagImg.classList.add(
                 'absolute',
                 'ml-[100px]',
@@ -228,24 +235,105 @@ function initializeDropdown(dropdownId) {
             tagImg.src = './assets/tagCross.png'
             tagImg.addEventListener('click', (e) => {
                 tags.remove()
+                // filter by tags
+                //filterRecipes()
             })
-            //newTag.innerHTML = `<img src='./assets/tagCross.png' />`
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
             tags.appendChild(tagImg)
             tags.appendChild(newTag)
             tagsContainer.appendChild(tags)
+            // filter by tags
+            //filterRecipes()
         })
     })
 }
-// function closeTag() {
-//     tagImg.
-// }
 
 // Use for all dropdowns
 initializeDropdown('drop-content1')
 initializeDropdown('drop-content2')
 initializeDropdown('drop-content3')
+
+///////////////////////////////////////////////////////////////////////////////
+// 3 fonctions pour filtrer no recettes par rapport aux tags grace au dropdown :
+//  1 - Fonction de qui recup les tags
+//  2 - Fonction recup liste recettes en entrée et retourne les recettes triées en sortie
+//  3 - Fonction pour refresh la liste de recettes
+
+function getTags() {
+    const tags = Array.from(
+        document.querySelectorAll('#tags-container div span')
+    ).map((tag) => tag.textContent)
+    return tags
+}
+
+function filterRecipes() {
+    const recipes = document.querySelectorAll('.main-section .cards')
+    const tags = getTags()
+    const recipesArray = Array.from(recipes)
+    //console.log(recipesArray)
+    //========================
+    //     for (let i = 0; i < recipesArray.length; i++) {
+    //         if (recipesArray[i].textContent.toLowerCase().includes(tags)) {
+    //             recipesArray[i].style.display = 'block'
+    //         } else {
+    //             recipesArray[i].style.display = 'none'
+    //         }
+    //     }
+    // }
+    //========================
+    const filteredRecipes = recipesArray.filter((recipe) => {
+        const recipeTags = Array.from(recipe.querySelectorAll('.tag')).map(
+            (tag) => tag.textContent
+        )
+        return tags.every((tag) => recipeTags.includes(tag))
+    })
+    displayFilteredRecipes(filteredRecipes)
+}
+
+function displayFilteredRecipes(recipes) {
+    const recipesContainer = document.querySelector('.main-section')
+    recipesContainer.innerHTML = ''
+    recipes.forEach((recipe) => {
+        recipesContainer.appendChild(recipe)
+    })
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+//===================================================
+// Function to sort recipes
+// function sortRecipes() {
+//     // Get the selected value from the dropdown
+//     const selectedIngredient =
+//         document.getElementById('ingredientDropdown').value
+
+//     // Get all recipes
+//     const recipes = document.querySelectorAll('.main-section div')
+
+//     // Iterate through all recipes and show or hide them based on the selected ingredient
+//     recipes.forEach(function (recipe) {
+//         const recipeIngredients = recipe
+//             .getAttribute('data-ingredients')
+//             .split(',')
+
+//         if (recipeIngredients.includes(selectedIngredient)) {
+//             recipe.style.display = 'block' // Show the recipe
+//         } else {
+//             recipe.style.display = 'none' // Hide the recipe
+//         }
+//     })
+// }
+
+// test
+// document.getElementById("dropdown-menu1").addEventListener("click", function (event) {
+//     if (event.target.tagName === "LI") {
+//         const selectedIngredient = event.target.innerText.trim();
+//         sortRecipesByIngredient(selectedIngredient);
+//     }
+// });
+
+//===================================================
 
 // Define a variable to store selected items for each dropdown
 // const selectedItems = {
@@ -278,7 +366,7 @@ initializeDropdown('drop-content3')
 //     // Get all recipes
 //     const recipes = document.querySelectorAll('.main-section .cards')
 
-//     // Iterate through each recipe and check if it matches the selected items
+//     // Iterate  each recipe and check if it matches the selected items
 //     recipes.forEach((recipe) => {
 
 //         )
@@ -328,37 +416,3 @@ initializeDropdown('drop-content3')
 // initializeDropdown('drop-content1')
 // initializeDropdown('drop-content2')
 // initializeDropdown('drop-content3')
-
-//===================================================
-// Function to sort recipes
-// function sortRecipes() {
-//     // Get the selected value from the dropdown
-//     const selectedIngredient =
-//         document.getElementById('ingredientDropdown').value
-
-//     // Get all recipes
-//     const recipes = document.querySelectorAll('.main-section div')
-
-//     // Iterate through all recipes and show or hide them based on the selected ingredient
-//     recipes.forEach(function (recipe) {
-//         const recipeIngredients = recipe
-//             .getAttribute('data-ingredients')
-//             .split(',')
-
-//         if (recipeIngredients.includes(selectedIngredient)) {
-//             recipe.style.display = 'block' // Show the recipe
-//         } else {
-//             recipe.style.display = 'none' // Hide the recipe
-//         }
-//     })
-// }
-
-// test
-// document.getElementById("dropdown-menu1").addEventListener("click", function (event) {
-//     if (event.target.tagName === "LI") {
-//         const selectedIngredient = event.target.innerText.trim();
-//         sortRecipesByIngredient(selectedIngredient);
-//     }
-// });
-
-//===================================================
