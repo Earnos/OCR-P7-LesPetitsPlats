@@ -117,7 +117,8 @@ function ingredientDisplay() {
             'active:bg-yellow',
             'rounded-md',
             'font-manrope',
-            'text-sm'
+            'text-sm',
+            'item-ingredient'
         )
         listItem.textContent = ingredient
         listIngredients.appendChild(listItem)
@@ -204,6 +205,8 @@ function initializeDropdown(dropdownId) {
             const tags = document.createElement('div')
             const newTag = document.createElement('span')
             const tagImg = document.createElement('img')
+            if (item.classList.contains('item-ingredient'))
+                newTag.classList.add('tag-ingredient')
             tags.classList.add(
                 'relative',
                 'bg-yellow',
@@ -236,7 +239,7 @@ function initializeDropdown(dropdownId) {
             tagImg.addEventListener('click', (e) => {
                 tags.remove()
                 // filter by tags
-                //filterRecipes()
+                //filterRecipes(recipes, newTag, dropdownList)
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -244,7 +247,7 @@ function initializeDropdown(dropdownId) {
             tags.appendChild(newTag)
             tagsContainer.appendChild(tags)
             // filter by tags
-            //filterRecipes()
+            filterRecipes(data, getTags())
         })
     })
 }
@@ -260,159 +263,60 @@ initializeDropdown('drop-content3')
 //  2 - Fonction recup liste recettes en entrée et retourne les recettes triées en sortie
 //  3 - Fonction pour refresh la liste de recettes
 
+function getIngredientList() {
+    // chercher les ingredients by current Tags
+    const listIngred = []
+    Array.from(document.getElementsByClassName('tag-ingredient')).forEach((e) =>
+        listIngred.push(e.textContent)
+    )
+    return listIngred
+}
+//console.log(getIngredientList())
+
+function getAppareilList() {
+    return Array.from(document.querySelectorAll('#drop-content2 > li'))
+}
+
+function getUstensilList() {
+    return Array.from(document.querySelectorAll('#drop-content3 > li'))
+}
+
 function getTags() {
-    const tags = Array.from(
-        document.querySelectorAll('#tags-container div span')
-    ).map((tag) => tag.textContent)
-    return tags
+    return {
+        listIngredient: getIngredientList(),
+        listAppareil: getAppareilList(),
+        listUstensil: getUstensilList(),
+    }
 }
+// filter recipes for each dropdown
+function filterRecipes(recipesList, tagList) {
+    const filteredByDropdowns = []
 
-function filterRecipes() {
-    const recipes = document.querySelectorAll('.main-section .cards')
-    const tags = getTags()
-    const recipesArray = Array.from(recipes)
-    //console.log(recipesArray)
-    //========================
-    //     for (let i = 0; i < recipesArray.length; i++) {
-    //         if (recipesArray[i].textContent.toLowerCase().includes(tags)) {
-    //             recipesArray[i].style.display = 'block'
-    //         } else {
-    //             recipesArray[i].style.display = 'none'
-    //         }
-    //     }
-    // }
-    //========================
-    const filteredRecipes = recipesArray.filter((recipe) => {
-        const recipeTags = Array.from(recipe.querySelectorAll('.tag')).map(
-            (tag) => tag.textContent
+    //console.log(tagList['listIngredient'])
+    recipesList.forEach((recipe) => {
+        //est ce que pour 'recipe' on a tous nos ingredients ?
+        let recipeIngredientList = []
+        recipe.ingredients.forEach((i) =>
+            recipeIngredientList.push(i.ingredient)
         )
-        return tags.every((tag) => recipeTags.includes(tag))
+        if (
+            tagList['listIngredient'].every((v) =>
+                recipeIngredientList.includes(v)
+            )
+        )
+            filteredByDropdowns.push(recipe)
     })
-    displayFilteredRecipes(filteredRecipes)
+    console.log(filteredByDropdowns)
+    return filteredByDropdowns
 }
 
-function displayFilteredRecipes(recipes) {
+// Sortir/externalisées les données direct ?
+function displayFilteredRecipes() {
     const recipesContainer = document.querySelector('.main-section')
     recipesContainer.innerHTML = ''
-    recipes.forEach((recipe) => {
+    const filteredRecipes = filterRecipes()
+    filteredRecipes.forEach((recipe) => {
         recipesContainer.appendChild(recipe)
     })
 }
-
-///////////////////////////////////////////////////////////////////////////////
-
-//===================================================
-// Function to sort recipes
-// function sortRecipes() {
-//     // Get the selected value from the dropdown
-//     const selectedIngredient =
-//         document.getElementById('ingredientDropdown').value
-
-//     // Get all recipes
-//     const recipes = document.querySelectorAll('.main-section div')
-
-//     // Iterate through all recipes and show or hide them based on the selected ingredient
-//     recipes.forEach(function (recipe) {
-//         const recipeIngredients = recipe
-//             .getAttribute('data-ingredients')
-//             .split(',')
-
-//         if (recipeIngredients.includes(selectedIngredient)) {
-//             recipe.style.display = 'block' // Show the recipe
-//         } else {
-//             recipe.style.display = 'none' // Hide the recipe
-//         }
-//     })
-// }
-
-// test
-// document.getElementById("dropdown-menu1").addEventListener("click", function (event) {
-//     if (event.target.tagName === "LI") {
-//         const selectedIngredient = event.target.innerText.trim();
-//         sortRecipesByIngredient(selectedIngredient);
-//     }
-// });
-
-//===================================================
-
-// Define a variable to store selected items for each dropdown
-// const selectedItems = {
-//     'drop-content1': [],
-//     'drop-content2': [],
-//     'drop-content3': [],
-// }
-
-// // Function to update the selected items and trigger filtering
-// function updateSelectedItems(dropdownId, selectedItem) {
-//     // Add or remove the selected item based on its current state
-//     const index = selectedItems[dropdownId].indexOf(selectedItem)
-//     if (index === -1) {
-//         selectedItems[dropdownId].push(selectedItem)
-//     } else {
-//         selectedItems[dropdownId].splice(index, 1)
-//     }
-
-//     // Call a function to filter recipes based on selected items
-//     filterRecipes()
-// }
-
-// /// Function to filter recipes based on selected items
-// function filterRecipes() {
-//     // Get all selected items from each dropdown
-//     const selectedIngredients = selectedItems['drop-content1']
-//     const selectedAppareils = selectedItems['drop-content2']
-//     const selectedUstensiles = selectedItems['drop-content3']
-
-//     // Get all recipes
-//     const recipes = document.querySelectorAll('.main-section .cards')
-
-//     // Iterate  each recipe and check if it matches the selected items
-//     recipes.forEach((recipe) => {
-
-//         )
-
-//         const isAppareilMatch = selectedAppareils.every((item) =>
-//             recipeAppareils.includes(item)
-//         )
-//         const isUstensileMatch = selectedUstensiles.every((item) =>
-//             recipeUstensiles.includes(item)
-//         )
-
-//         recipe.style.display = isRecipeVisible ? 'block' : 'none'
-
-// }
-
-// // Function to initialize dropdowns
-// function initializeDropdown(dropdownId) {
-//     const dropdownList = document.querySelectorAll(`#${dropdownId} li`)
-
-//     dropdownList.forEach((item) => {
-//         item.addEventListener('click', (e) => {
-//             // Update the selected items and trigger filtering
-//             updateSelectedItems(dropdownId, e.target.textContent)
-
-//             // Your existing code to create and append tags
-//             const newTag = document.createElement('span')
-//             newTag.classList.add(
-//                 'w-8',
-//                 'h-4',
-//                 'bg-yellow',
-//                 'p-2',
-//                 'mx-4',
-//                 'my-3',
-//                 'rounded-md',
-//                 'text-[14px]',
-//                 'font-manrope'
-//             )
-//             newTag.textContent = e.target.textContent
-
-//             const tagsContainer = document.getElementById('tags-container')
-//             tagsContainer.appendChild(newTag)
-//         })
-//     })
-// }
-
-// // Use for all dropdowns
-// initializeDropdown('drop-content1')
-// initializeDropdown('drop-content2')
-// initializeDropdown('drop-content3')
+//console.log(displayFilteredRecipes())
