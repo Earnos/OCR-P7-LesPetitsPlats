@@ -244,7 +244,8 @@ function initializeDropdown(dropdownId) {
             tagImg.addEventListener('click', (e) => {
                 tags.remove()
                 // filter by tags
-                //filterRecipes(recipes, newTag, dropdownList)
+                const filteredRecipes = filterRecipes(data, getTags())
+                displayFilteredRecipes(filteredRecipes)
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -273,7 +274,6 @@ function getIngredientList() {
     )
     return listIngred
 }
-console.log(getIngredientList())
 
 function getAppareilList() {
     const listApp = []
@@ -282,7 +282,6 @@ function getAppareilList() {
     )
     return listApp
 }
-console.log(getAppareilList())
 
 function getUstensilList() {
     const listUste = []
@@ -291,7 +290,6 @@ function getUstensilList() {
     )
     return listUste
 }
-console.log(getUstensilList())
 
 function getTags() {
     return {
@@ -304,10 +302,6 @@ function getTags() {
 function filterRecipes(recipesList, tagList) {
     const filteredByDropdowns = []
 
-    console.log(tagList['listIngredient'])
-    console.log(tagList['listAppareil'])
-    console.log(tagList['listUstensil'])
-
     //Loop for ingredients dropdown
     recipesList.forEach((recipe) => {
         let recipeIngredientList = []
@@ -315,36 +309,78 @@ function filterRecipes(recipesList, tagList) {
         let recipeUstensilList = []
         let appareilArray = recipe.appliance.split(' ')
 
-        console.log(recipeAppareilList.join())
-
         //Push for each ingredients in data
         recipe.ingredients.forEach((i) =>
             recipeIngredientList.push(i.ingredient)
         )
-        //If data ingredients is in tag list
-        if (
-            tagList['listIngredient'].every((v) =>
+
+        // Use switch statement to check conditions
+        switch (true) {
+            // If data ingredients is in tag list
+            case tagList['listIngredient'].every((v) =>
                 recipeIngredientList.includes(v)
-            )
-        )
-            //     //Push for each appareils in data
-            //     appareilArray.forEach((i) => recipeAppareilList.push(i.ingredient))
-            // // If data appareils is in tag list
-            // if (
-            //     tagList['listAppareil'].every((v) => recipeAppareilList.includes(v))
-            // )
-            //     //Push for each appareils in data
-            //     recipe.ustensils.forEach((i) =>
-            //         recipeUstensilList.push(i.ingredient)
-            //     )
-            // // If data appareils is in tag list
-            // if (
-            //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
-            // )
-            //     //final filtered recipes list
-            filteredByDropdowns.push(recipe)
+            ):
+                // Push for each appareils in data
+                appareilArray.forEach((i) => recipeAppareilList.push(i))
+
+                // check the next condition
+                switch (true) {
+                    // If data appareils is in tag list
+                    case tagList['listAppareil'].every((v) =>
+                        recipeAppareilList.join(' ').includes(v)
+                    ):
+                        // Push for each ustensils in data
+                        recipe.ustensils.forEach((i) =>
+                            recipeUstensilList.push(i)
+                        )
+
+                        // check the last condition
+                        switch (true) {
+                            // If data ustensils is in tag list
+                            case tagList['listUstensil'].every((v) =>
+                                recipeUstensilList.includes(v)
+                            ):
+                                // Push the recipe to the filtered list
+                                filteredByDropdowns.push(recipe)
+                                break
+                        }
+                        break
+                }
+                break
+        }
+        //If data ingredients is in tag list
+        // if (
+        //     tagList['listIngredient'].every((v) =>
+        //         recipeIngredientList.includes(v)
+        //     )
+        // )
+        //     //Push for each appareils in data
+        //     appareilArray.forEach((i) => recipeAppareilList.push(i))
+        // // If data appareils is in tag list
+        // if (
+        //     tagList['listAppareil'].every((v) =>
+        //         recipeAppareilList.join(' ').includes(v)
+        //     )
+        // )
+        //     //Push for each ustensils in data
+        //     recipe.ustensils.forEach((i) => recipeUstensilList.push(i))
+        // // If data ustensils is in tag list
+        // if (
+        //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
+        // )
+        // if (
+        //     tagList['listIngredient'].every((v) =>
+        //         recipeIngredientList.includes(v)
+        //     ) &&
+        //     tagList['listAppareil'].every((v) =>
+        //         recipeAppareilList.join(' ').includes(v)
+        //     ) &&
+        //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
+        // )
+
+        // Push the recipe to the filtered list
+        //filteredByDropdowns.push(recipe)
     })
-    console.log(filteredByDropdowns)
     return filteredByDropdowns
 }
 
