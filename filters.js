@@ -1,3 +1,4 @@
+import createCards from './cards.js'
 import getRecipes from './cards.js'
 import getData from './data.js'
 
@@ -149,7 +150,8 @@ function appareilsDisplay() {
             'active:bg-yellow',
             'rounded-md',
             'font-manrope',
-            'text-sm'
+            'text-sm',
+            'item-appareil'
         )
         listItem.textContent = appareil
         listAppareils.appendChild(listItem)
@@ -183,7 +185,8 @@ function ustensilsDisplay() {
             'active:bg-yellow',
             'rounded-md',
             'font-manrope',
-            'text-sm'
+            'text-sm',
+            'item-ustensil'
         )
         listItem.textContent = ustensil
         listUstensils.appendChild(listItem)
@@ -197,8 +200,6 @@ ustensilsDisplay()
 // Dropdown menu's tags creation
 function initializeDropdown(dropdownId) {
     const dropdownList = document.querySelectorAll(`#${dropdownId} li`)
-    const recipes = document.querySelectorAll('.main-section .cards')
-    //console.log(recipes)
 
     dropdownList.forEach((item) => {
         item.addEventListener('click', (e) => {
@@ -207,6 +208,10 @@ function initializeDropdown(dropdownId) {
             const tagImg = document.createElement('img')
             if (item.classList.contains('item-ingredient'))
                 newTag.classList.add('tag-ingredient')
+            if (item.classList.contains('item-appareil'))
+                newTag.classList.add('tag-appareil')
+            if (item.classList.contains('item-ustensil'))
+                newTag.classList.add('tag-ustensil')
             tags.classList.add(
                 'relative',
                 'bg-yellow',
@@ -247,7 +252,8 @@ function initializeDropdown(dropdownId) {
             tags.appendChild(newTag)
             tagsContainer.appendChild(tags)
             // filter by tags
-            filterRecipes(data, getTags())
+            const filteredRecipes = filterRecipes(data, getTags())
+            displayFilteredRecipes(filteredRecipes)
         })
     })
 }
@@ -257,11 +263,7 @@ initializeDropdown('drop-content1')
 initializeDropdown('drop-content2')
 initializeDropdown('drop-content3')
 
-///////////////////////////////////////////////////////////////////////////////
-// 3 fonctions pour filtrer no recettes par rapport aux tags grace au dropdown :
-//  1 - Fonction de qui recup les tags
-//  2 - Fonction recup liste recettes en entrée et retourne les recettes triées en sortie
-//  3 - Fonction pour refresh la liste de recettes
+// 3 functions : get each dropdowns list & put in an array
 
 function getIngredientList() {
     // chercher les ingredients by current Tags
@@ -271,15 +273,25 @@ function getIngredientList() {
     )
     return listIngred
 }
-//console.log(getIngredientList())
+console.log(getIngredientList())
 
 function getAppareilList() {
-    return Array.from(document.querySelectorAll('#drop-content2 > li'))
+    const listApp = []
+    Array.from(document.getElementsByClassName('tag-appareil')).map((e) =>
+        listApp.push(e.textContent)
+    )
+    return listApp
 }
+console.log(getAppareilList())
 
 function getUstensilList() {
-    return Array.from(document.querySelectorAll('#drop-content3 > li'))
+    const listUste = []
+    Array.from(document.getElementsByClassName('tag-ustensil')).map((e) =>
+        listUste.push(e.textContent)
+    )
+    return listUste
 }
+console.log(getUstensilList())
 
 function getTags() {
     return {
@@ -288,35 +300,57 @@ function getTags() {
         listUstensil: getUstensilList(),
     }
 }
-// filter recipes for each dropdown
+// filters recipes for each dropdown whith tags's list
 function filterRecipes(recipesList, tagList) {
     const filteredByDropdowns = []
 
-    //console.log(tagList['listIngredient'])
+    console.log(tagList['listIngredient'])
+    console.log(tagList['listAppareil'])
+    console.log(tagList['listUstensil'])
+
+    //Loop for ingredients dropdown
     recipesList.forEach((recipe) => {
-        //est ce que pour 'recipe' on a tous nos ingredients ?
         let recipeIngredientList = []
+        let recipeAppareilList = []
+        let recipeUstensilList = []
+        let appareilArray = recipe.appliance.split(' ')
+
+        console.log(recipeAppareilList.join())
+
+        //Push for each ingredients in data
         recipe.ingredients.forEach((i) =>
             recipeIngredientList.push(i.ingredient)
         )
+        //If data ingredients is in tag list
         if (
             tagList['listIngredient'].every((v) =>
                 recipeIngredientList.includes(v)
             )
         )
+            //     //Push for each appareils in data
+            //     appareilArray.forEach((i) => recipeAppareilList.push(i.ingredient))
+            // // If data appareils is in tag list
+            // if (
+            //     tagList['listAppareil'].every((v) => recipeAppareilList.includes(v))
+            // )
+            //     //Push for each appareils in data
+            //     recipe.ustensils.forEach((i) =>
+            //         recipeUstensilList.push(i.ingredient)
+            //     )
+            // // If data appareils is in tag list
+            // if (
+            //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
+            // )
+            //     //final filtered recipes list
             filteredByDropdowns.push(recipe)
     })
     console.log(filteredByDropdowns)
     return filteredByDropdowns
 }
 
-// Sortir/externalisées les données direct ?
-function displayFilteredRecipes() {
+function displayFilteredRecipes(filteredRecipes) {
     const recipesContainer = document.querySelector('.main-section')
     recipesContainer.innerHTML = ''
-    const filteredRecipes = filterRecipes()
-    filteredRecipes.forEach((recipe) => {
-        recipesContainer.appendChild(recipe)
-    })
+
+    createCards(filteredRecipes)
 }
-//console.log(displayFilteredRecipes())

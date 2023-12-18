@@ -1,11 +1,9 @@
 import getData from './data.js'
 
 let data = getData()
-//console.table(data)
-console.log(data)
 
-export default function getRecipes() {
-    data.forEach((recipe) => {
+export default function createCards(recipeData) {
+    recipeData.forEach((recipe) => {
         const cardContainer = document.createElement('div')
         const section = document.querySelector('.main-section')
 
@@ -59,5 +57,5 @@ export default function getRecipes() {
     })
 }
 
-// Appel de la fonction pour afficher les cartes de recettes
-getRecipes()
+// call function creation cards
+createCards(data)
