@@ -1,8 +1,3 @@
-// import getData from './data.js'
-// // import getRecipes from './cards.js'
-
-// // let recipes = getData()
-
 // Sort method with FOR loop
 const searchInput = document.getElementById('searchInput')
 
@@ -28,7 +23,14 @@ function filterRecipes(letters, elements) {
         }
     }
 }
+// Search Bars methode 2 (with filter())
 
+// import getData from './data.js'
+// // import getRecipes from './cards.js'
+
+// // let recipes = getData()
+
+//version a test
 // Sort methode with filter()
 // function filterRecipes() {
 //     const searchInput = document.getElementById('searchInput')

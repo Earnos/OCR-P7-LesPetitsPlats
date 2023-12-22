@@ -348,38 +348,6 @@ function filterRecipes(recipesList, tagList) {
                 }
                 break
         }
-        //If data ingredients is in tag list
-        // if (
-        //     tagList['listIngredient'].every((v) =>
-        //         recipeIngredientList.includes(v)
-        //     )
-        // )
-        //     //Push for each appareils in data
-        //     appareilArray.forEach((i) => recipeAppareilList.push(i))
-        // // If data appareils is in tag list
-        // if (
-        //     tagList['listAppareil'].every((v) =>
-        //         recipeAppareilList.join(' ').includes(v)
-        //     )
-        // )
-        //     //Push for each ustensils in data
-        //     recipe.ustensils.forEach((i) => recipeUstensilList.push(i))
-        // // If data ustensils is in tag list
-        // if (
-        //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
-        // )
-        // if (
-        //     tagList['listIngredient'].every((v) =>
-        //         recipeIngredientList.includes(v)
-        //     ) &&
-        //     tagList['listAppareil'].every((v) =>
-        //         recipeAppareilList.join(' ').includes(v)
-        //     ) &&
-        //     tagList['listUstensil'].every((v) => recipeUstensilList.includes(v))
-        // )
-
-        // Push the recipe to the filtered list
-        //filteredByDropdowns.push(recipe)
     })
     return filteredByDropdowns
 }
