@@ -51,7 +51,7 @@ dropdownButton3.addEventListener('click', () => {
 // Add event listener to filter items based on input
 searchInput1.addEventListener('input', () => {
     const searchTerm = searchInput1.value.toLowerCase()
-    const items = dropdownMenu1.querySelectorAll('a')
+    const items = dropdownMenu1.querySelectorAll('li')
 
     items.forEach((item) => {
         const text = item.textContent.toLowerCase()
@@ -64,7 +64,7 @@ searchInput1.addEventListener('input', () => {
 })
 searchInput2.addEventListener('input', () => {
     const searchTerm = searchInput2.value.toLowerCase()
-    const items = dropdownMenu2.querySelectorAll('a')
+    const items = dropdownMenu2.querySelectorAll('li')
 
     items.forEach((item) => {
         const text = item.textContent.toLowerCase()
@@ -77,7 +77,7 @@ searchInput2.addEventListener('input', () => {
 })
 searchInput3.addEventListener('input', () => {
     const searchTerm = searchInput3.value.toLowerCase()
-    const items = dropdownMenu3.querySelectorAll('a')
+    const items = dropdownMenu3.querySelectorAll('li')
 
     items.forEach((item) => {
         const text = item.textContent.toLowerCase()
