@@ -1,5 +1,4 @@
 import createCards from './cards.js'
-import getRecipes from './cards.js'
 import getData from './data.js'
 
 let data = getData()
@@ -314,39 +313,34 @@ function filterRecipes(recipesList, tagList) {
             recipeIngredientList.push(i.ingredient)
         )
 
-        // Use switch statement to check conditions
-        switch (true) {
-            // If data ingredients is in tag list
-            case tagList['listIngredient'].every((v) =>
+        // If data ingredients is in tag list
+        if (
+            tagList['listIngredient'].every((v) =>
                 recipeIngredientList.includes(v)
-            ):
-                // Push for each appareils in data
-                appareilArray.forEach((i) => recipeAppareilList.push(i))
+            )
+        ) {
+            // Push for each appareils in data
+            appareilArray.forEach((i) => recipeAppareilList.push(i))
 
-                // check the next condition
-                switch (true) {
-                    // If data appareils is in tag list
-                    case tagList['listAppareil'].every((v) =>
-                        recipeAppareilList.join(' ').includes(v)
-                    ):
-                        // Push for each ustensils in data
-                        recipe.ustensils.forEach((i) =>
-                            recipeUstensilList.push(i)
-                        )
+            // If data appareils is in tag list
+            if (
+                tagList['listAppareil'].every((v) =>
+                    recipeAppareilList.join(' ').includes(v)
+                )
+            ) {
+                // Push for each ustensils in data
+                recipe.ustensils.forEach((i) => recipeUstensilList.push(i))
 
-                        // check the last condition
-                        switch (true) {
-                            // If data ustensils is in tag list
-                            case tagList['listUstensil'].every((v) =>
-                                recipeUstensilList.includes(v)
-                            ):
-                                // Push the recipe to the filtered list
-                                filteredByDropdowns.push(recipe)
-                                break
-                        }
-                        break
+                // If data ustensils is in tag list
+                if (
+                    tagList['listUstensil'].every((v) =>
+                        recipeUstensilList.includes(v)
+                    )
+                ) {
+                    // Push the recipe to the filtered list
+                    filteredByDropdowns.push(recipe)
                 }
-                break
+            }
         }
     })
     return filteredByDropdowns
