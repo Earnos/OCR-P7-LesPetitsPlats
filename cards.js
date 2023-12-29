@@ -28,7 +28,7 @@ export default function createCards(recipeData) {
             .join('')
 
         cardContainer.innerHTML = `
-                <div class="w-[27vw] h-[100%] mb-6 bg-white rounded-xl relative">
+                <div class="w-[27vw] max-[1265px]:w-[33vw] max-[900px]:w-[40vw] h-[100%] max-[750px]:w-[65vw] mb-6 bg-white rounded-xl relative">
                     <div class="w-full h-[220px]" >
                         <span class='pl-2 pt-0.5 w-[50px] h-[20px] text-[10px] bg-yellow rounded-3xl top-4 right-4 absolute pl-1.5 '>${recipe.time} min</span>
                         <img src="./assets/images/${recipe.image}" class='h-full w-full object-cover rounded-t-xl' />
