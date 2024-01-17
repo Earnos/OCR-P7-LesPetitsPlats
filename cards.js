@@ -1,4 +1,5 @@
 import getData from './data.js'
+import { showRecipesNumber } from './data.js'
 
 let data = getData()
 
@@ -59,3 +60,17 @@ export default function createCards(recipeData) {
 
 // call function creation cards
 createCards(data)
+
+// function showRecipesNumber(filteredRecipes) {
+//     const counter = document.getElementById('counter-recipes')
+//     const recipes = document.getElementsByTagName('main-section')
+//     console.log(filteredRecipes.length)
+//     if (filteredRecipes === 0) {
+//         recipes.innerHTML =
+//             "<p>'Aucune recette ne correspond à votre recherche'</p>"
+//     }
+
+//     counter.textContent = filteredRecipes.length + ' ' + 'recette(s)'
+// }
+
+showRecipesNumber(data)

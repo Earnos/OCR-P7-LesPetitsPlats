@@ -1,5 +1,6 @@
 import createCards from './cards.js'
 import getData from './data.js'
+import { showRecipesNumber } from './data.js'
 
 let data = getData()
 
@@ -245,6 +246,7 @@ function initializeDropdown(dropdownId) {
                 // filter by tags
                 const filteredRecipes = filterRecipes(data, getTags())
                 displayFilteredRecipes(filteredRecipes)
+                showRecipesNumber(filteredRecipes)
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -254,6 +256,7 @@ function initializeDropdown(dropdownId) {
             // filter by tags
             const filteredRecipes = filterRecipes(data, getTags())
             displayFilteredRecipes(filteredRecipes)
+            showRecipesNumber(filteredRecipes)
         })
     })
 }

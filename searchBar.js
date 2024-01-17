@@ -1,3 +1,7 @@
+import { showRecipesNumber } from './data.js'
+
+const CHARLVLMIN = 3
+
 // filter recipes with searchBar
 const searchInput = document.getElementById('searchInput')
 
@@ -8,7 +12,7 @@ searchInput.addEventListener('keyup', (e) => {
 })
 
 function filterRecipes(letters, elements) {
-    if (letters.length > 2) {
+    if (letters.length >= CHARLVLMIN) {
         const filteredElements = Array.from(elements).filter((element) =>
             element.textContent.toLowerCase().includes(letters)
         )
@@ -20,11 +24,11 @@ function filterRecipes(letters, elements) {
                 element.style.display = 'none'
             }
         })
-    }
-
-    if (letters.length < 2) {
+        showRecipesNumber(filteredElements)
+    } else {
         elements.forEach((element) => {
             element.style.display = 'block'
         })
+        showRecipesNumber(elements)
     }
 }
