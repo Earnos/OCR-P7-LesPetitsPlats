@@ -4,9 +4,9 @@ import { showRecipesNumber } from './data.js'
 let data = getData()
 
 export default function createCards(recipeData) {
+    const section = document.querySelector('.main-section')
     recipeData.forEach((recipe) => {
         const cardContainer = document.createElement('div')
-        const section = document.querySelector('.main-section')
 
         cardContainer.classList.add('flex', 'cards')
 
@@ -58,19 +58,34 @@ export default function createCards(recipeData) {
     })
 }
 
-// call function creation cards
+// display filtered's recipes from search bar
+export function displayFilteredRecipes(filteredElements, elements, letters) {
+    elements.forEach((element) => {
+        if (filteredElements.includes(element)) {
+            element.style.display = 'block'
+        } else {
+            element.style.display = 'none'
+        }
+    })
+    showRecipesNumber(filteredElements, letters)
+    errorMsgNoRecipes(filteredElements, letters)
+}
+
+export function errorMsgNoRecipes(filteredElements, letters) {
+    const section = document.querySelector('.main-section')
+    let errorRecipes = document.getElementById('error-message-recipes')
+
+    errorRecipes ? errorRecipes.remove() : null
+
+    if (filteredElements.length === 0) {
+        const p = document.createElement('p')
+        p.textContent = `Aucune recette ne contient '${letters}' vous pouvez chercher  «
+        tarte aux pommes », « poisson », etc.`
+        p.setAttribute('id', 'error-message-recipes')
+        section.appendChild(p)
+    }
+}
+
+//create recipes's cards
 createCards(data)
-
-// function showRecipesNumber(filteredRecipes) {
-//     const counter = document.getElementById('counter-recipes')
-//     const recipes = document.getElementsByTagName('main-section')
-//     console.log(filteredRecipes.length)
-//     if (filteredRecipes === 0) {
-//         recipes.innerHTML =
-//             "<p>'Aucune recette ne correspond à votre recherche'</p>"
-//     }
-
-//     counter.textContent = filteredRecipes.length + ' ' + 'recette(s)'
-// }
-
 showRecipesNumber(data)

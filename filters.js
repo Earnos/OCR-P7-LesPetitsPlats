@@ -1,6 +1,7 @@
 import createCards from './cards.js'
 import getData from './data.js'
 import { showRecipesNumber } from './data.js'
+//import { filterRecipes } from './searchBar.js'
 
 let data = getData()
 
@@ -91,7 +92,7 @@ searchInput3.addEventListener('input', () => {
 })
 
 // Display in dropdown menus's functions
-function ingredientDisplay() {
+export function ingredientDisplay(inputValue) {
     const listIngredients = document.getElementById('drop-content1')
     const uniqueIngredients = new Set()
 
@@ -103,12 +104,15 @@ function ingredientDisplay() {
             uniqueIngredients.add(data[i].ingredients[j].ingredient)
         }
     }
-
     // Clear existing content in the list
     listIngredients.innerHTML = ''
 
-    // Create and append a new <li> element for each unique ingredient
-    uniqueIngredients.forEach((ingredient) => {
+    // Filtrer les ingrédients en fonction de inputValue
+
+    const filteredIngredients = Array.from(uniqueIngredients).filter((i) =>
+        i.toLowerCase().includes(inputValue.toLowerCase())
+    )
+    filteredIngredients.forEach((ingredient) => {
         const listItem = document.createElement('li')
         listItem.classList.add(
             'p-[5px]',
@@ -192,8 +196,8 @@ function ustensilsDisplay() {
         listUstensils.appendChild(listItem)
     })
 }
-
-ingredientDisplay()
+const searchInput = document.getElementById('searchInput').value
+ingredientDisplay(searchInput)
 appareilsDisplay()
 ustensilsDisplay()
 

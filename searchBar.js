@@ -1,4 +1,4 @@
-import { showRecipesNumber } from './data.js'
+import { displayFilteredRecipes } from './cards.js'
 
 const CHARLVLMIN = 3
 
@@ -8,27 +8,18 @@ const searchInput = document.getElementById('searchInput')
 searchInput.addEventListener('keyup', (e) => {
     const cards = document.querySelectorAll('.cards')
     const characters = e.target.value
-    filterRecipes(characters, cards)
+    const filteredElements = filterBySearchBar(characters, cards)
+    displayFilteredRecipes(filteredElements, cards, characters)
 })
 
-function filterRecipes(letters, elements) {
+// filter recipes in searchBar
+function filterBySearchBar(letters, elements) {
     if (letters.length >= CHARLVLMIN) {
         const filteredElements = Array.from(elements).filter((element) =>
             element.textContent.toLowerCase().includes(letters)
         )
-
-        elements.forEach((element) => {
-            if (filteredElements.includes(element)) {
-                element.style.display = 'block'
-            } else {
-                element.style.display = 'none'
-            }
-        })
-        showRecipesNumber(filteredElements)
+        return filteredElements
     } else {
-        elements.forEach((element) => {
-            element.style.display = 'block'
-        })
-        showRecipesNumber(elements)
+        return Array.from(elements)
     }
 }
