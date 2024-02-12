@@ -1,11 +1,12 @@
 import createCards from './cards.js'
 import getData from './data.js'
 import { showRecipesNumber } from './data.js'
-//import { filterRecipes } from './searchBar.js'
+import { errorMsgNoRecipes } from './cards.js'
+import { filterBySearchBar } from './searchBar.js'
 
 let data = getData()
 
-// JavaScript to toggle the dropdown
+//toggle the dropdown
 const dropdownButton1 = document.getElementById('dropdown-button1')
 const dropdownMenu1 = document.getElementById('dropdown-menu1')
 const searchInput1 = document.getElementById('search-input1')
@@ -50,7 +51,7 @@ dropdownButton3.addEventListener('click', () => {
     toggleCaretRotation('caret3')
 })
 
-// Add event listener to filter items based on input
+// Add event listener to filter items based on input in dropdowns
 searchInput1.addEventListener('input', () => {
     const searchTerm = searchInput1.value.toLowerCase()
     const items = dropdownMenu1.querySelectorAll('li')
@@ -90,29 +91,47 @@ searchInput3.addEventListener('input', () => {
         }
     })
 })
-
-// Display in dropdown menus's functions
-export function ingredientDisplay(inputValue) {
-    const listIngredients = document.getElementById('drop-content1')
-    const uniqueIngredients = new Set()
-
-    // Loop for each recipe
+//======================================================================
+export function displayDropdown(dataType, dropdownId, inputValue, data) {
+    const listElement = document.getElementById(dropdownId)
+    const uniqueValues = new Set()
+    //Loop for each recipe
     for (let i = 0; i < data.length; i++) {
-        // Loop for each ingredient
-        for (let j = 0; j < data[i].ingredients.length; j++) {
-            // Add each ingredient to the set
-            uniqueIngredients.add(data[i].ingredients[j].ingredient)
+        let itemsArray
+
+        //Check the data type to determine the items array
+        switch (dataType) {
+            case 'ingredients':
+                itemsArray = data[i].ingredients.map((item) => item.ingredient)
+                break
+            case 'appareils':
+                itemsArray = [data[i].appliance]
+                break
+            case 'ustensils':
+                itemsArray = data[i].ustensils
+                break
+            default:
+                break
         }
+
+        const filteredByInput = itemsArray.filter((value) =>
+            value.toLowerCase().includes(inputValue.toLowerCase())
+        )
+        filteredByInput.forEach((value) =>
+            uniqueValues.add(value.toLowerCase())
+        )
     }
+
     // Clear existing content in the list
-    listIngredients.innerHTML = ''
+    listElement.innerHTML = ''
 
-    // Filtrer les ingrédients en fonction de inputValue
-
-    const filteredIngredients = Array.from(uniqueIngredients).filter((i) =>
-        i.toLowerCase().includes(inputValue.toLowerCase())
+    // Filter the values based on inputValue
+    const filteredValues = Array.from(uniqueValues).filter((value) =>
+        value.includes(inputValue.toLowerCase())
     )
-    filteredIngredients.forEach((ingredient) => {
+
+    // Create and append a new <li> element for each unique value
+    filteredValues.forEach((value) => {
         const listItem = document.createElement('li')
         listItem.classList.add(
             'p-[5px]',
@@ -123,98 +142,33 @@ export function ingredientDisplay(inputValue) {
             'rounded-md',
             'font-manrope',
             'text-sm',
-            'item-ingredient'
+            `item-${dataType}`
         )
-        listItem.textContent = ingredient
-        listIngredients.appendChild(listItem)
+        listItem.textContent = value
+        listElement.appendChild(listItem)
     })
 }
 
-function appareilsDisplay() {
-    const listAppareils = document.getElementById('drop-content2')
-    const uniqueAppareils = new Set()
-
-    // Loop for each recipe
-    for (let i = 0; i < data.length; i++) {
-        let appareil = data[i].appliance
-        uniqueAppareils.add(appareil)
-    }
-
-    // Clear existing content in the list
-    listAppareils.innerHTML = ''
-
-    // Create and append a new <li> element for each unique appliance
-    uniqueAppareils.forEach((appareil) => {
-        const listItem = document.createElement('li')
-        listItem.classList.add(
-            'p-[5px]',
-            'mb-1',
-            'text-gray-700',
-            'hover:bg-gray-100',
-            'active:bg-yellow',
-            'rounded-md',
-            'font-manrope',
-            'text-sm',
-            'item-appareil'
-        )
-        listItem.textContent = appareil
-        listAppareils.appendChild(listItem)
-    })
-}
-
-function ustensilsDisplay() {
-    const listUstensils = document.getElementById('drop-content3')
-    const uniqueUstensils = new Set()
-
-    // Loop for each recipe
-    for (let i = 0; i < data.length; i++) {
-        // Loop for each ustensil
-        for (let j = 0; j < data[i].ustensils.length; j++) {
-            // Add each ustensil to the set
-            uniqueUstensils.add(data[i].ustensils[j])
-        }
-    }
-
-    // Clear existing content in the list
-    listUstensils.innerHTML = ''
-
-    // Create and append a new <li> element for each unique ustensil
-    uniqueUstensils.forEach((ustensil) => {
-        const listItem = document.createElement('li')
-        listItem.classList.add(
-            'p-[5px]',
-            'mb-1',
-            'text-gray-700',
-            'hover:bg-gray-100',
-            'active:bg-yellow',
-            'rounded-md',
-            'font-manrope',
-            'text-sm',
-            'item-ustensil'
-        )
-        listItem.textContent = ustensil
-        listUstensils.appendChild(listItem)
-    })
-}
 const searchInput = document.getElementById('searchInput').value
-ingredientDisplay(searchInput)
-appareilsDisplay()
-ustensilsDisplay()
+displayDropdown('ingredients', 'drop-content1', searchInput, data)
+displayDropdown('appareils', 'drop-content2', searchInput, data)
+displayDropdown('ustensils', 'drop-content3', searchInput, data)
 
 // Dropdown menu's tags creation
-function initializeDropdown(dropdownId) {
+export function initializeDropdown(dropdownId) {
     const dropdownList = document.querySelectorAll(`#${dropdownId} li`)
+    const cards = document.querySelectorAll('.cards')
 
     dropdownList.forEach((item) => {
         item.addEventListener('click', (e) => {
             const tags = document.createElement('div')
             const newTag = document.createElement('span')
             const tagImg = document.createElement('img')
-            if (item.classList.contains('item-ingredient'))
+            if (item.classList.contains('item-ingredients'))
                 newTag.classList.add('tag-ingredient')
-            if (item.classList.contains('item-appareil'))
+            if (item.classList.contains('item-appareils'))
                 newTag.classList.add('tag-appareil')
-            if (item.classList.contains('item-ustensil'))
+            if (item.classList.contains('item-ustensils'))
                 newTag.classList.add('tag-ustensil')
             tags.classList.add(
                 'relative',
@@ -248,9 +202,17 @@ function initializeDropdown(dropdownId) {
             tagImg.addEventListener('click', (e) => {
                 tags.remove()
                 // filter by tags
+                // Besoin d'une condition si je supprime mes tags conserve searchBar
+                //  filter et mets a jour le nombre de recipes filter
+
                 const filteredRecipes = filterRecipes(data, getTags())
-                displayFilteredRecipes(filteredRecipes)
+                //filterBySearchBar(searchInput, cards)
+                filterBySearchBar(searchInput, cards)
+                displayFilteredRecipes(filteredRecipes, cards, searchInput)
                 showRecipesNumber(filteredRecipes)
+                errorMsgNoRecipes(filteredRecipes, searchInput)
+
+                //errorMsgNoRecipes(filteredRecipes, searchInput)
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -261,6 +223,7 @@ function initializeDropdown(dropdownId) {
             const filteredRecipes = filterRecipes(data, getTags())
             displayFilteredRecipes(filteredRecipes)
             showRecipesNumber(filteredRecipes)
+            errorMsgNoRecipes(filteredRecipes, searchInput)
         })
     })
 }
@@ -317,9 +280,8 @@ function filterRecipes(recipesList, tagList) {
 
         //Push for each ingredients in data
         recipe.ingredients.forEach((i) =>
-            recipeIngredientList.push(i.ingredient)
+            recipeIngredientList.push(i.ingredient.toLowerCase())
         )
-
         // If data ingredients is in tag list
         if (
             tagList['listIngredient'].every((v) =>
@@ -327,7 +289,9 @@ function filterRecipes(recipesList, tagList) {
             )
         ) {
             // Push for each appareils in data
-            appareilArray.forEach((i) => recipeAppareilList.push(i))
+            appareilArray.forEach((i) =>
+                recipeAppareilList.push(i.toLowerCase())
+            )
 
             // If data appareils is in tag list
             if (
@@ -336,7 +300,9 @@ function filterRecipes(recipesList, tagList) {
                 )
             ) {
                 // Push for each ustensils in data
-                recipe.ustensils.forEach((i) => recipeUstensilList.push(i))
+                recipe.ustensils.forEach((i) =>
+                    recipeUstensilList.push(i.toLowerCase())
+                )
 
                 // If data ustensils is in tag list
                 if (
@@ -355,7 +321,7 @@ function filterRecipes(recipesList, tagList) {
 
 function displayFilteredRecipes(filteredRecipes) {
     const recipesContainer = document.querySelector('.main-section')
+    const cards = document.querySelectorAll('.cards')
     recipesContainer.innerHTML = ''
-
     createCards(filteredRecipes)
 }

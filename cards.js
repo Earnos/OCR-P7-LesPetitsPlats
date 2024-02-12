@@ -74,13 +74,30 @@ export function displayFilteredRecipes(filteredElements, elements, letters) {
 export function errorMsgNoRecipes(filteredElements, letters) {
     const section = document.querySelector('.main-section')
     let errorRecipes = document.getElementById('error-message-recipes')
+    const ingredientTag = document.querySelector('.tag-ingredient')
+    const appareilTag = document.querySelector('.tag-appareil')
+    const ustensilTag = document.querySelector('.tag-ustensil')
 
     errorRecipes ? errorRecipes.remove() : null
 
     if (filteredElements.length === 0) {
         const p = document.createElement('p')
-        p.textContent = `Aucune recette ne contient '${letters}' vous pouvez chercher  «
-        tarte aux pommes », « poisson », etc.`
+        let message = `Aucune recette ne contient ${letters} `
+
+        // Vérifiez si chaque tag est défini avant de les ajouter au message
+        if (ingredientTag) {
+            message += "'" + ingredientTag.textContent + "'" + '+'
+        }
+        if (appareilTag) {
+            message += "'" + appareilTag.textContent + "'" + ' '
+        }
+        if (ustensilTag) {
+            message += "'" + ustensilTag.textContent + "'" + ' '
+        }
+
+        message += ` ,vous pouvez chercher  « tarte aux pommes », « poisson », etc.`
+
+        p.textContent = message
         p.setAttribute('id', 'error-message-recipes')
         section.appendChild(p)
     }
@@ -88,4 +105,5 @@ export function errorMsgNoRecipes(filteredElements, letters) {
 
 //create recipes's cards
 createCards(data)
+// Show the number of a filtered's cards
 showRecipesNumber(data)
