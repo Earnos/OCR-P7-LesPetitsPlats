@@ -149,13 +149,13 @@ export function displayDropdown(dataType, dropdownId, inputValue, data) {
     })
 }
 
-const searchInput = document.getElementById('searchInput').value
+let searchInput = document.getElementById('searchInput').value
 displayDropdown('ingredients', 'drop-content1', searchInput, data)
 displayDropdown('appareils', 'drop-content2', searchInput, data)
 displayDropdown('ustensils', 'drop-content3', searchInput, data)
 
 // Dropdown menu's tags creation
-export function initializeDropdown(dropdownId) {
+export function initializeDropdown(dropdownId, filteredData) {
     const dropdownList = document.querySelectorAll(`#${dropdownId} li`)
     const cards = document.querySelectorAll('.cards')
 
@@ -202,17 +202,31 @@ export function initializeDropdown(dropdownId) {
             tagImg.addEventListener('click', (e) => {
                 tags.remove()
                 // filter by tags
-                // Besoin d'une condition si je supprime mes tags conserve searchBar
-                //  filter et mets a jour le nombre de recipes filter
-
-                const filteredRecipes = filterRecipes(data, getTags())
-                //filterBySearchBar(searchInput, cards)
-                filterBySearchBar(searchInput, cards)
-                displayFilteredRecipes(filteredRecipes, cards, searchInput)
-                showRecipesNumber(filteredRecipes)
-                errorMsgNoRecipes(filteredRecipes, searchInput)
-
-                //errorMsgNoRecipes(filteredRecipes, searchInput)
+                searchInput = document.getElementById('searchInput').value
+                const filteredData = filterDataSearch(searchInput, data)
+                if (searchInput) {
+                    console.log(searchInput)
+                    let filteredElement = filterBySearchBar(
+                        searchInput,
+                        filteredData
+                    )
+                    console.log(filteredElement)
+                    console.log(filteredData)
+                    const filteredRecipes = filterRecipes(
+                        filteredData,
+                        getTags()
+                    )
+                    console.log(filteredRecipes)
+                    displayFilteredRecipes(filteredRecipes)
+                    showRecipesNumber(filteredRecipes)
+                    errorMsgNoRecipes(filteredRecipes, searchInput)
+                } else {
+                    const filteredRecipes = filterRecipes(data, getTags())
+                    console.log(filteredRecipes)
+                    displayFilteredRecipes(filteredRecipes, cards, searchInput)
+                    showRecipesNumber(filteredRecipes)
+                    errorMsgNoRecipes(filteredRecipes, searchInput)
+                }
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -324,4 +338,15 @@ function displayFilteredRecipes(filteredRecipes) {
     const cards = document.querySelectorAll('.cards')
     recipesContainer.innerHTML = ''
     createCards(filteredRecipes)
+}
+
+function filterDataSearch(searchInput, data) {
+    const filteredData = data.filter((recipe) => {
+        const searchString = Object.values(recipe).join(' ').toLowerCase()
+        return searchString.includes(searchInput.toLowerCase())
+    })
+
+    showRecipesNumber(filteredData)
+    console.log(filteredData)
+    return filteredData
 }
