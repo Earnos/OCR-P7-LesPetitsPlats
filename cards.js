@@ -1,11 +1,12 @@
 import getData from './data.js'
+import { showRecipesNumber } from './data.js'
 
 let data = getData()
 
 export default function createCards(recipeData) {
+    const section = document.querySelector('.main-section')
     recipeData.forEach((recipe) => {
         const cardContainer = document.createElement('div')
-        const section = document.querySelector('.main-section')
 
         cardContainer.classList.add('flex', 'cards')
 
@@ -52,10 +53,63 @@ export default function createCards(recipeData) {
                     </div>
                 </div>
             `
-        //===================================================================
         section.appendChild(cardContainer)
     })
 }
 
-// call function creation cards
+// display filtered's recipes from search bar
+// export function displayFilteredRecipes(filteredElements, elements, letters) {
+//     console.log(filteredElements)
+//     elements.forEach((element) => {
+//         if (filteredElements.includes(element)) {
+//             element.style.display = 'block'
+//         } else {
+//             element.style.display = 'none'
+//         }
+//     })
+//     showRecipesNumber(filteredElements, letters)
+//     errorMsgNoRecipes(filteredElements, letters)
+// }
+
+export function displayFilteredElements(filteredRecipes) {
+    const recipesContainer = document.querySelector('.main-section')
+    recipesContainer.innerHTML = ''
+    createCards(filteredRecipes)
+}
+
+export function errorMsgNoRecipes(filteredElements, letters) {
+    const section = document.querySelector('.main-section')
+    let errorRecipes = document.getElementById('error-message-recipes')
+    const ingredientTag = document.querySelector('.tag-ingredient')
+    const appareilTag = document.querySelector('.tag-appareil')
+    const ustensilTag = document.querySelector('.tag-ustensil')
+
+    errorRecipes ? errorRecipes.remove() : null
+
+    if (filteredElements.length === 0) {
+        const p = document.createElement('p')
+        let message = `Aucune recette ne contient ${letters} `
+
+        // Vérifiez si chaque tag est défini avant de les ajouter au message
+        if (ingredientTag) {
+            message += "'" + ingredientTag.textContent + "'" + '+'
+        }
+        if (appareilTag) {
+            message += "'" + appareilTag.textContent + "'" + ' '
+        }
+        if (ustensilTag) {
+            message += "'" + ustensilTag.textContent + "'" + ' '
+        }
+
+        message += ` ,vous pouvez chercher  « tarte aux pommes », « poisson », etc.`
+
+        p.textContent = message
+        p.setAttribute('id', 'error-message-recipes')
+        section.appendChild(p)
+    }
+}
+
+//create recipes's cards
 createCards(data)
+// Show the number of a filtered's cards
+showRecipesNumber(data)
