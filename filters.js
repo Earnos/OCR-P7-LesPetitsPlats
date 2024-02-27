@@ -1,7 +1,6 @@
 import getData from './data.js'
 import { showRecipesNumber } from './data.js'
 import { errorMsgNoRecipes } from './cards.js'
-import { filterBySearchBar } from './searchBar.js'
 import { displayFilteredElements } from './cards.js'
 
 let data = getData()
@@ -203,18 +202,10 @@ export function initializeDropdown(dropdownId, filteredData) {
                 tags.remove()
                 // filter by tags
                 searchInput = document.getElementById('searchInput').value
-                const filteredData = filterDataSearch(searchInput, data)
+                //const filteredData = filterDataSearch(searchInput, data)
                 if (searchInput) {
-                    let filteredElement = filterBySearchBar(
-                        searchInput,
-                        filteredData
-                    )
-                    const filteredRecipes = filterRecipes(
-                        filteredData,
-                        getTags()
-                    )
                     displayFilteredElements(filteredRecipes)
-                    showRecipesNumber(filteredRecipes)
+                    showRecipesNumber()
                     errorMsgNoRecipes(filteredRecipes, searchInput)
                 } else {
                     const filteredRecipes = filterRecipes(data, getTags())
@@ -223,7 +214,7 @@ export function initializeDropdown(dropdownId, filteredData) {
                         filteredData,
                         searchInput
                     )
-                    showRecipesNumber(filteredRecipes)
+                    showRecipesNumber()
                     errorMsgNoRecipes(filteredRecipes, searchInput)
                 }
             })
@@ -235,7 +226,7 @@ export function initializeDropdown(dropdownId, filteredData) {
             // filter by tags
             const filteredRecipes = filterRecipes(data, getTags())
             displayFilteredElements(filteredRecipes)
-            showRecipesNumber(filteredRecipes)
+            showRecipesNumber()
             errorMsgNoRecipes(filteredRecipes, searchInput)
         })
     })
@@ -330,14 +321,4 @@ function filterRecipes(recipesList, tagList) {
         }
     })
     return filteredByDropdowns
-}
-
-function filterDataSearch(searchInput, data) {
-    const filteredData = data.filter((recipe) => {
-        const searchString = Object.values(recipe).join(' ').toLowerCase()
-        return searchString.includes(searchInput.toLowerCase())
-    })
-
-    showRecipesNumber(filteredData)
-    return filteredData
 }

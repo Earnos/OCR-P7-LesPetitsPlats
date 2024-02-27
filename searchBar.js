@@ -3,6 +3,7 @@ import { displayDropdown } from './filters.js'
 import getData from './data.js'
 import { initializeDropdown } from './filters.js'
 import { showRecipesNumber } from './data.js'
+import { errorMsgNoRecipes } from './cards.js'
 
 let data = getData()
 const CHARLVLMIN = 3
@@ -20,12 +21,12 @@ searchInput.addEventListener('keyup', (e) => {
     if (characters.length >= CHARLVLMIN) {
         const filteredElements = filterBySearchBar(characters, cards)
         showRecipesNumber()
-        //displayFilteredRecipes(filteredElements, cards, characters)
+        errorMsgNoRecipes(filteredElements, characters)
         charSearch = characters
     } else {
         const filteredElements = filterBySearchBar('', cards)
         showRecipesNumber()
-        //displayFilteredRecipes(filteredElements, cards, '')
+        errorMsgNoRecipes(filteredElements, characters)
     }
     displayDropdown('ingredients', 'drop-content1', charSearch, data)
     displayDropdown('appareils', 'drop-content2', charSearch, data)
@@ -35,16 +36,6 @@ searchInput.addEventListener('keyup', (e) => {
     initializeDropdown('drop-content3')
 })
 
-//filter recipes in searchBar
-// export function filterBySearchBar(letters, elements) {
-//     const filteredElements = Array.from(elements).filter(
-//         (element) =>
-//             element.textContent &&
-//             element.textContent.toLowerCase().includes(letters.toLowerCase())
-//     )
-//     showRecipesNumber(filteredElements)
-//     return filteredElements
-// }
 export function filterBySearchBar(letters, elements) {
     if (letters.length >= CHARLVLMIN) {
         for (let i = 0; i < elements.length; i++) {
@@ -61,8 +52,5 @@ export function filterBySearchBar(letters, elements) {
         }
     }
     const sortedElements = Array.from(elements)
-    //showRecipesNumber(elements)
     return sortedElements
 }
-// const cards = document.querySelectorAll('.cards')
-// filterBySearchBar(searchInput, cards)

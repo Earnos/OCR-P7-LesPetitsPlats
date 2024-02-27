@@ -9,6 +9,7 @@ export default function createCards(recipeData) {
         const cardContainer = document.createElement('div')
 
         cardContainer.classList.add('flex', 'cards')
+        cardContainer.style.display = 'block'
 
         // Dynamic ingredients & quantities
         const ingredients = recipe.ingredients
@@ -57,20 +58,6 @@ export default function createCards(recipeData) {
     })
 }
 
-// display filtered's recipes from search bar
-// export function displayFilteredRecipes(filteredElements, elements, letters) {
-//     console.log(filteredElements)
-//     elements.forEach((element) => {
-//         if (filteredElements.includes(element)) {
-//             element.style.display = 'block'
-//         } else {
-//             element.style.display = 'none'
-//         }
-//     })
-//     showRecipesNumber(filteredElements, letters)
-//     errorMsgNoRecipes(filteredElements, letters)
-// }
-
 export function displayFilteredElements(filteredRecipes) {
     const recipesContainer = document.querySelector('.main-section')
     recipesContainer.innerHTML = ''
@@ -83,10 +70,11 @@ export function errorMsgNoRecipes(filteredElements, letters) {
     const ingredientTag = document.querySelector('.tag-ingredient')
     const appareilTag = document.querySelector('.tag-appareil')
     const ustensilTag = document.querySelector('.tag-ustensil')
-
+    let elementsBlockNum = showRecipesNumber()
     errorRecipes ? errorRecipes.remove() : null
+    console.log(elementsBlockNum)
 
-    if (filteredElements.length === 0) {
+    if (filteredElements.length === 0 || elementsBlockNum == 0) {
         const p = document.createElement('p')
         let message = `Aucune recette ne contient ${letters} `
 
