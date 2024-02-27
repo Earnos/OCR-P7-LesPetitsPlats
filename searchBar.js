@@ -1,4 +1,4 @@
-import { displayFilteredRecipes } from './cards.js'
+import createCards, { displayFilteredRecipes } from './cards.js'
 import { displayDropdown } from './filters.js'
 import getData from './data.js'
 import { initializeDropdown } from './filters.js'
@@ -11,6 +11,9 @@ const CHARLVLMIN = 3
 const searchInput = document.getElementById('searchInput')
 
 searchInput.addEventListener('keyup', (e) => {
+    const domCards = document.getElementById('main-section')
+    domCards.innerHTML = ''
+    createCards(data)
     const cards = document.querySelectorAll('.cards')
     const characters = e.target.value
     let charSearch = ''

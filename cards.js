@@ -53,7 +53,6 @@ export default function createCards(recipeData) {
                     </div>
                 </div>
             `
-        //===================================================================
         section.appendChild(cardContainer)
     })
 }
@@ -69,6 +68,12 @@ export function displayFilteredRecipes(filteredElements, elements, letters) {
     })
     showRecipesNumber(filteredElements, letters)
     errorMsgNoRecipes(filteredElements, letters)
+}
+
+export function displayFilteredElements(filteredRecipes) {
+    const recipesContainer = document.querySelector('.main-section')
+    recipesContainer.innerHTML = ''
+    createCards(filteredRecipes)
 }
 
 export function errorMsgNoRecipes(filteredElements, letters) {
