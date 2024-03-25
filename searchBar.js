@@ -1,9 +1,14 @@
 import createCards from './cards.js'
-import { displayDropdown } from './filters.js'
+import { displayDropdown, fullFilter } from './filters.js'
 import getData from './data.js'
-import { initializeDropdown } from './filters.js'
+import {
+    initializeDropdown,
+    getTags,
+    filterRecipes,
+    filterDataFromFront,
+} from './filters.js'
 import { showRecipesNumber } from './data.js'
-import { errorMsgNoRecipes } from './cards.js'
+import { errorMsgNoRecipes, displayFilteredElements } from './cards.js'
 
 let data = getData()
 const CHARLVLMIN = 3
@@ -18,19 +23,27 @@ searchInput.addEventListener('keyup', (e) => {
     const cards = document.querySelectorAll('.cards')
     const characters = e.target.value
     let charSearch = ''
+    let searchInput = ''
     if (characters.length >= CHARLVLMIN) {
-        const filteredElements = filterBySearchBar(characters, cards)
-        showRecipesNumber()
-        errorMsgNoRecipes(filteredElements, characters)
-        charSearch = characters
+        searchInput = characters
+        // const filteredElements = filterBySearchBar(characters, cards)
+        // //showRecipesNumber()
+        // errorMsgNoRecipes(filteredElements, characters)
+        // charSearch = characters
     } else {
-        const filteredElements = filterBySearchBar('', cards)
-        showRecipesNumber()
-        errorMsgNoRecipes(filteredElements, characters)
+        // const filteredElements = filterBySearchBar('', cards)
+        // //showRecipesNumber()
+        // errorMsgNoRecipes(filteredElements, characters)
     }
-    displayDropdown('ingredients', 'drop-content1', charSearch, data)
-    displayDropdown('appareils', 'drop-content2', charSearch, data)
-    displayDropdown('ustensils', 'drop-content3', charSearch, data)
+    const dataFiltered = fullFilter(searchInput, getTags(), data)
+    console.log(dataFiltered)
+    // console.log(filterDataFromFront())
+    // const filterAfter = filterRecipes(filterDataFromFront(), getTags())
+    // displayFilteredElements(filterAfter)
+    // showRecipesNumber()
+    displayDropdown('ingredients', 'drop-content1', charSearch, dataFiltered)
+    displayDropdown('appareils', 'drop-content2', charSearch, dataFiltered)
+    displayDropdown('ustensils', 'drop-content3', charSearch, dataFiltered)
     initializeDropdown('drop-content1')
     initializeDropdown('drop-content2')
     initializeDropdown('drop-content3')

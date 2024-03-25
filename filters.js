@@ -2,6 +2,7 @@ import getData from './data.js'
 import { showRecipesNumber } from './data.js'
 import { errorMsgNoRecipes } from './cards.js'
 import { displayFilteredElements } from './cards.js'
+import { filterBySearchBar } from './searchBar.js'
 
 let data = getData()
 
@@ -91,7 +92,7 @@ searchInput3.addEventListener('input', () => {
     })
 })
 
-export function displayDropdown(dataType, dropdownId, inputValue, data) {
+export function displayDropdown(dataType, dropdownId, inputValue = '', data) {
     const listElement = document.getElementById(dropdownId)
     const uniqueValues = new Set()
     //Loop for each recipe
@@ -113,12 +114,10 @@ export function displayDropdown(dataType, dropdownId, inputValue, data) {
                 break
         }
 
-        const filteredByInput = itemsArray.filter((value) =>
-            value.toLowerCase().includes(inputValue.toLowerCase())
-        )
-        filteredByInput.forEach((value) =>
-            uniqueValues.add(value.toLowerCase())
-        )
+        // const filteredByInput = itemsArray.filter((value) =>
+        //     value.toLowerCase().includes(inputValue.toLowerCase())
+        // )
+        itemsArray.forEach((value) => uniqueValues.add(value.toLowerCase()))
     }
 
     // Clear existing content in the list
@@ -202,21 +201,42 @@ export function initializeDropdown(dropdownId, filteredData) {
                 tags.remove()
                 // filter by tags
                 searchInput = document.getElementById('searchInput').value
-                //const filteredData = filterDataSearch(searchInput, data)
-                if (searchInput) {
-                    displayFilteredElements(filteredRecipes)
-                    showRecipesNumber()
-                    errorMsgNoRecipes(filteredRecipes, searchInput)
-                } else {
-                    const filteredRecipes = filterRecipes(data, getTags())
-                    displayFilteredElements(
-                        filteredRecipes,
-                        filteredData,
-                        searchInput
-                    )
-                    showRecipesNumber()
-                    errorMsgNoRecipes(filteredRecipes, searchInput)
-                }
+                // const filteredData = filterDataSearch(searchInput, data)
+                // if (searchInput) {
+                //     displayFilteredElements(filteredRecipes)
+                //     showRecipesNumber()
+                //     errorMsgNoRecipes(filteredRecipes, searchInput)
+                //     //fullFilter(searchInput, getTags(), data)
+                // } else {
+                // }
+                const filteredRecipes = filterRecipes(data, getTags())
+                displayFilteredElements(
+                    filteredRecipes,
+                    filteredData,
+                    searchInput
+                )
+                const filteredRecipe = fullFilter(searchInput, getTags(), data)
+                displayDropdown(
+                    'ingredients',
+                    'drop-content1',
+                    '',
+                    filteredRecipe
+                )
+                displayDropdown(
+                    'appareils',
+                    'drop-content2',
+                    '',
+                    filteredRecipe
+                )
+                displayDropdown(
+                    'ustensils',
+                    'drop-content3',
+                    '',
+                    filteredRecipe
+                )
+                initializeDropdown('drop-content1')
+                initializeDropdown('drop-content2')
+                initializeDropdown('drop-content3')
             })
             // add tag in DOM
             const tagsContainer = document.getElementById('tags-container')
@@ -224,10 +244,20 @@ export function initializeDropdown(dropdownId, filteredData) {
             tags.appendChild(newTag)
             tagsContainer.appendChild(tags)
             // filter by tags
-            const filteredRecipes = filterRecipes(data, getTags())
-            displayFilteredElements(filteredRecipes)
-            showRecipesNumber()
-            errorMsgNoRecipes(filteredRecipes, searchInput)
+            // const filteredRecipes = filterRecipes(data, getTags())
+            // displayFilteredElements(filteredRecipes)
+            // //fullFilter(searchInput, getTags(), data)
+            // showRecipesNumber()
+            // errorMsgNoRecipes(filteredRecipes, searchInput)
+            searchInput = document.getElementById('searchInput').value
+            const filteredRecipes = fullFilter(searchInput, getTags(), data)
+            console.log(filteredRecipes)
+            displayDropdown('ingredients', 'drop-content1', '', filteredRecipes)
+            displayDropdown('appareils', 'drop-content2', '', filteredRecipes)
+            displayDropdown('ustensils', 'drop-content3', '', filteredRecipes)
+            initializeDropdown('drop-content1')
+            initializeDropdown('drop-content2')
+            initializeDropdown('drop-content3')
         })
     })
 }
@@ -264,7 +294,7 @@ function getUstensilList() {
     return listUste
 }
 
-function getTags() {
+export function getTags() {
     return {
         listIngredient: getIngredientList(),
         listAppareil: getAppareilList(),
@@ -272,7 +302,7 @@ function getTags() {
     }
 }
 // filters recipes for each dropdown whith tags's list
-function filterRecipes(recipesList, tagList) {
+export function filterRecipes(recipesList, tagList) {
     const filteredByDropdowns = []
 
     //Loop for ingredients dropdown
@@ -321,4 +351,32 @@ function filterRecipes(recipesList, tagList) {
         }
     })
     return filteredByDropdowns
+}
+
+export function filterDataFromFront() {
+    const frontData = document.getElementsByClassName('cards')
+    const dataFiltered = []
+    //console.log(data)
+    const recipes = data
+
+    Array.from(frontData).forEach((card) => {
+        let title = card.getElementsByTagName('h2')[0].outerText
+        if (card.style.display == 'block') {
+            dataFiltered.push(
+                recipes.filter((recipe) => recipe.name === title)[0]
+            )
+        }
+    })
+    //console.log(dataFiltered)
+    return dataFiltered
+}
+
+export function fullFilter(searchInput, tagList, data) {
+    const cards = document.querySelectorAll('.cards')
+    const filteredElements = filterBySearchBar(searchInput, cards)
+    const filterAfter = filterRecipes(filterDataFromFront(), tagList)
+    displayFilteredElements(filterAfter)
+    showRecipesNumber()
+    errorMsgNoRecipes(filterAfter, searchInput)
+    return filterDataFromFront()
 }
